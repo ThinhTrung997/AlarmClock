@@ -1,44 +1,34 @@
 package com.example.alarmclock
 
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Switch
 import android.widget.TextView
+import androidx.appcompat.widget.SwitchCompat
 import androidx.recyclerview.widget.RecyclerView
 
 class AlarmAdapter(
     private val alarmList: MutableList<Alarm>,
+    private val onItemClick: ((position: Int, alarm: Alarm) -> Unit)? = null,
     private val onAlarmToggle: ((position: Int, isEnabled: Boolean) -> Unit)? = null
 ) : RecyclerView.Adapter<AlarmAdapter.AlarmViewHolder>() {
 
-    class AlarmViewHolder(
-        itemView: View
-    ) : RecyclerView.ViewHolder(itemView) {
-
+    class AlarmViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val tvTitle: TextView = itemView.findViewById(R.id.tvTitle)
         val tvTime: TextView = itemView.findViewById(R.id.tvTime)
         val tvAmPm: TextView = itemView.findViewById(R.id.tvAmPm)
         val tvRepeat: TextView = itemView.findViewById(R.id.tvRepeat)
-        val switchAlarm: Switch = itemView.findViewById(R.id.switchAlarm)
+        val switchAlarm: SwitchCompat = itemView.findViewById(R.id.switchAlarm)
     }
 
-    override fun onCreateViewHolder(
-        parent: ViewGroup,
-        viewType: Int
-    ): AlarmViewHolder {
-
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AlarmViewHolder {
         val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.item_alarm, parent, false)
-
         return AlarmViewHolder(view)
     }
 
-    override fun onBindViewHolder(
-        holder: AlarmViewHolder,
-        position: Int
-    ) {
-
+    override fun onBindViewHolder(holder: AlarmViewHolder, position: Int) {
         val alarm = alarmList[position]
 
         holder.tvTitle.text = alarm.title
@@ -46,17 +36,43 @@ class AlarmAdapter(
         holder.tvAmPm.text = alarm.amPm
         holder.tvRepeat.text = alarm.repeat
 
-        // Remove listener before setting isChecked to avoid triggering unwanted callbacks
+        updateCardAppearance(holder, alarm.isEnabled)
+
+        // Click on the entire card to Edit
+        holder.itemView.setOnClickListener {
+            val currentPos = holder.adapterPosition
+            if (currentPos != RecyclerView.NO_POSITION) {
+                onItemClick?.invoke(currentPos, alarmList[currentPos])
+            }
+        }
+
+        // Toggle Switch
         holder.switchAlarm.setOnCheckedChangeListener(null)
         holder.switchAlarm.isChecked = alarm.isEnabled
 
         holder.switchAlarm.setOnCheckedChangeListener { _, isChecked ->
-            alarmList[position] = alarm.copy(isEnabled = isChecked)
-            onAlarmToggle?.invoke(position, isChecked)
+            val currentPos = holder.adapterPosition
+            if (currentPos != RecyclerView.NO_POSITION) {
+                alarmList[currentPos] = alarmList[currentPos].copy(isEnabled = isChecked)
+                updateCardAppearance(holder, isChecked)
+                onAlarmToggle?.invoke(currentPos, isChecked)
+            }
         }
     }
 
-    override fun getItemCount(): Int {
-        return alarmList.size
+    private fun updateCardAppearance(holder: AlarmViewHolder, isEnabled: Boolean) {
+        if (isEnabled) {
+            holder.tvTime.setTextColor(Color.parseColor("#FFFFFF"))
+            holder.tvAmPm.setTextColor(Color.parseColor("#FFFFFF"))
+            holder.tvTitle.setTextColor(Color.parseColor("#C7C4D7"))
+            holder.tvRepeat.setTextColor(Color.parseColor("#C0C1FF"))
+        } else {
+            holder.tvTime.setTextColor(Color.parseColor("#63636E"))
+            holder.tvAmPm.setTextColor(Color.parseColor("#63636E"))
+            holder.tvTitle.setTextColor(Color.parseColor("#63636E"))
+            holder.tvRepeat.setTextColor(Color.parseColor("#63636E"))
+        }
     }
+
+    override fun getItemCount(): Int = alarmList.size
 }

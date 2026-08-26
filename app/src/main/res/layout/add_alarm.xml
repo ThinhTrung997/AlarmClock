@@ -1,0 +1,571 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#131315">
+
+    <!-- ================= 1. TOP HEADER ================= -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layoutHeader"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:paddingHorizontal="16dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <ImageView
+            android:id="@+id/btnClose"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:padding="2dp"
+            android:src="@drawable/ic_close"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="Close"
+            app:tint="#FFFFFF"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent" />
+
+        <TextView
+            android:id="@+id/tvHeaderTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Add Alarm"
+            android:textColor="#FFFFFF"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent" />
+
+        <TextView
+            android:id="@+id/btnHeaderSave"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Save"
+            android:textColor="#C0C1FF"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:padding="8dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <!-- ================= 2. SCROLLABLE CONTENT ================= -->
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/scrollViewContent"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:clipToPadding="false"
+        android:paddingHorizontal="16dp"
+        android:paddingTop="8dp"
+        android:paddingBottom="16dp"
+        app:layout_constraintTop_toBottomOf="@id/layoutHeader"
+        app:layout_constraintBottom_toTopOf="@id/layoutBottom"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <!-- 2.1 TIME PICKER SECTION -->
+            <LinearLayout
+                android:id="@+id/layoutTimePicker"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:paddingVertical="20dp">
+
+                <!-- Hours Box -->
+                <LinearLayout
+                    android:id="@+id/boxHours"
+                    android:layout_width="88dp"
+                    android:layout_height="120dp"
+                    android:background="@drawable/bg_time_box"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/tvHourPrev"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="05"
+                        android:textColor="#5A5A62"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:id="@+id/tvHourCurrent"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="06"
+                        android:textColor="#C0C1FF"
+                        android:textSize="38sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/tvHourNext"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="07"
+                        android:textColor="#5A5A62"
+                        android:textSize="14sp" />
+                </LinearLayout>
+
+                <!-- Colon separator -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="12dp"
+                    android:text=":"
+                    android:textColor="#FFFFFF"
+                    android:textSize="36sp"
+                    android:textStyle="bold" />
+
+                <!-- Minutes Box -->
+                <LinearLayout
+                    android:id="@+id/boxMinutes"
+                    android:layout_width="88dp"
+                    android:layout_height="120dp"
+                    android:background="@drawable/bg_time_box"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/tvMinutePrev"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="29"
+                        android:textColor="#5A5A62"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:id="@+id/tvMinuteCurrent"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="30"
+                        android:textColor="#FFFFFF"
+                        android:textSize="38sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/tvMinuteNext"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="31"
+                        android:textColor="#5A5A62"
+                        android:textSize="14sp" />
+                </LinearLayout>
+
+                <!-- AM / PM Selector -->
+                <LinearLayout
+                    android:id="@+id/layoutAmPm"
+                    android:layout_width="52dp"
+                    android:layout_height="120dp"
+                    android:layout_marginStart="14dp"
+                    android:background="@drawable/bg_ampm_container"
+                    android:padding="4dp"
+                    android:orientation="vertical">
+
+                    <!-- AM Button -->
+                    <TextView
+                        android:id="@+id/btnAm"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/bg_ampm_selected"
+                        android:gravity="center"
+                        android:text="AM"
+                        android:textColor="#0D0096"
+                        android:textSize="13sp"
+                        android:textStyle="bold" />
+
+                    <!-- PM Button -->
+                    <TextView
+                        android:id="@+id/btnPm"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="PM"
+                        android:textColor="#8E8E93"
+                        android:textSize="13sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <!-- 2.2 CARD 1: LABEL -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/bg_card_rounded"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Label"
+                    android:textColor="#8E8E93"
+                    android:textSize="12sp" />
+
+                <EditText
+                    android:id="@+id/etLabel"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:background="@null"
+                    android:hint="Alarm Label"
+                    android:text="Morning Workout"
+                    android:textColor="#FFFFFF"
+                    android:textColorHint="#5A5A62"
+                    android:textSize="15sp"
+                    android:singleLine="true" />
+            </LinearLayout>
+
+            <!-- 2.3 CARD 2: REPEAT -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:background="@drawable/bg_card_rounded"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Repeat"
+                        android:textColor="#FFFFFF"
+                        android:textSize="15sp"
+                        android:textStyle="bold"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent" />
+
+                    <TextView
+                        android:id="@+id/tvRepeatSummary"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Everyday"
+                        android:textColor="#8E8E93"
+                        android:textSize="13sp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <!-- Day Buttons Row -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="14dp"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <!-- Mon -->
+                    <TextView
+                        android:id="@+id/btnDayMon"
+                        android:layout_width="38dp"
+                        android:layout_height="38dp"
+                        android:background="@drawable/bg_day_selected"
+                        android:gravity="center"
+                        android:text="M"
+                        android:textColor="#0D0096"
+                        android:textSize="13sp"
+                        android:textStyle="bold" />
+
+                    <!-- Tue -->
+                    <TextView
+                        android:id="@+id/btnDayTue"
+                        android:layout_width="38dp"
+                        android:layout_height="38dp"
+                        android:layout_marginStart="8dp"
+                        android:background="@drawable/bg_day_selected"
+                        android:gravity="center"
+                        android:text="T"
+                        android:textColor="#0D0096"
+                        android:textSize="13sp"
+                        android:textStyle="bold" />
+
+                    <!-- Wed -->
+                    <TextView
+                        android:id="@+id/btnDayWed"
+                        android:layout_width="38dp"
+                        android:layout_height="38dp"
+                        android:layout_marginStart="8dp"
+                        android:background="@drawable/bg_day_selected"
+                        android:gravity="center"
+                        android:text="W"
+                        android:textColor="#0D0096"
+                        android:textSize="13sp"
+                        android:textStyle="bold" />
+
+                    <!-- Thu -->
+                    <TextView
+                        android:id="@+id/btnDayThu"
+                        android:layout_width="38dp"
+                        android:layout_height="38dp"
+                        android:layout_marginStart="8dp"
+                        android:background="@drawable/bg_day_selected"
+                        android:gravity="center"
+                        android:text="T"
+                        android:textColor="#0D0096"
+                        android:textSize="13sp"
+                        android:textStyle="bold" />
+
+                    <!-- Fri -->
+                    <TextView
+                        android:id="@+id/btnDayFri"
+                        android:layout_width="38dp"
+                        android:layout_height="38dp"
+                        android:layout_marginStart="8dp"
+                        android:background="@drawable/bg_day_selected"
+                        android:gravity="center"
+                        android:text="F"
+                        android:textColor="#0D0096"
+                        android:textSize="13sp"
+                        android:textStyle="bold" />
+
+                    <!-- Sat -->
+                    <TextView
+                        android:id="@+id/btnDaySat"
+                        android:layout_width="38dp"
+                        android:layout_height="38dp"
+                        android:layout_marginStart="8dp"
+                        android:background="@drawable/bg_day_unselected"
+                        android:gravity="center"
+                        android:text="S"
+                        android:textColor="#8E8E93"
+                        android:textSize="13sp"
+                        android:textStyle="bold" />
+
+                    <!-- Sun -->
+                    <TextView
+                        android:id="@+id/btnDaySun"
+                        android:layout_width="38dp"
+                        android:layout_height="38dp"
+                        android:layout_marginStart="8dp"
+                        android:background="@drawable/bg_day_unselected"
+                        android:gravity="center"
+                        android:text="S"
+                        android:textColor="#8E8E93"
+                        android:textSize="13sp"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+            </LinearLayout>
+
+            <!-- 2.4 CARD 3: SOUND -->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cardSound"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:background="@drawable/bg_card_rounded"
+                android:padding="16dp">
+
+                <ImageView
+                    android:id="@+id/ivSound"
+                    android:layout_width="22dp"
+                    android:layout_height="22dp"
+                    android:src="@drawable/ic_music"
+                    app:tint="#C7C4D7"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent" />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="14dp"
+                    android:layout_marginEnd="8dp"
+                    android:orientation="vertical"
+                    app:layout_constraintStart_toEndOf="@id/ivSound"
+                    app:layout_constraintEnd_toStartOf="@id/ivChevronSound"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Sound"
+                        android:textColor="#FFFFFF"
+                        android:textSize="15sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/tvSoundName"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="2dp"
+                        android:text="Default Alarm"
+                        android:textColor="#8E8E93"
+                        android:textSize="12sp" />
+                </LinearLayout>
+
+                <ImageView
+                    android:id="@+id/ivChevronSound"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/ic_chevron_right"
+                    app:tint="#8E8E93"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <!-- 2.5 CARD 4: VIBRATION -->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cardVibration"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:background="@drawable/bg_card_rounded"
+                android:padding="16dp">
+
+                <ImageView
+                    android:id="@+id/ivVibration"
+                    android:layout_width="22dp"
+                    android:layout_height="22dp"
+                    android:src="@drawable/ic_vibration"
+                    app:tint="#C7C4D7"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="14dp"
+                    android:layout_marginEnd="8dp"
+                    android:text="Vibration"
+                    android:textColor="#FFFFFF"
+                    android:textSize="15sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toEndOf="@id/ivVibration"
+                    app:layout_constraintEnd_toStartOf="@id/switchVibration"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent" />
+
+                <androidx.appcompat.widget.SwitchCompat
+                    android:id="@+id/switchVibration"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checked="true"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <!-- 2.6 CARD 5: SNOOZE -->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cardSnooze"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:layout_marginBottom="16dp"
+                android:background="@drawable/bg_card_rounded"
+                android:padding="16dp">
+
+                <ImageView
+                    android:id="@+id/ivSnooze"
+                    android:layout_width="22dp"
+                    android:layout_height="22dp"
+                    android:src="@drawable/ic_snooze"
+                    app:tint="#C7C4D7"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent" />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="14dp"
+                    android:layout_marginEnd="8dp"
+                    android:orientation="vertical"
+                    app:layout_constraintStart_toEndOf="@id/ivSnooze"
+                    app:layout_constraintEnd_toStartOf="@id/ivChevronSnooze"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Snooze"
+                        android:textColor="#FFFFFF"
+                        android:textSize="15sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/tvSnoozeDuration"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="2dp"
+                        android:text="10 minutes"
+                        android:textColor="#8E8E93"
+                        android:textSize="12sp" />
+                </LinearLayout>
+
+                <ImageView
+                    android:id="@+id/ivChevronSnooze"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/ic_chevron_right"
+                    app:tint="#8E8E93"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+    <!-- ================= 3. BOTTOM BUTTON ================= -->
+    <LinearLayout
+        android:id="@+id/layoutBottom"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#131315"
+        android:paddingHorizontal="16dp"
+        android:paddingTop="8dp"
+        android:paddingBottom="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnSaveAlarm"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:text="Save Alarm"
+            android:textColor="#1000A9"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:backgroundTint="#C0C1FF"
+            app:cornerRadius="28dp"
+            android:insetTop="0dp"
+            android:insetBottom="0dp" />
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

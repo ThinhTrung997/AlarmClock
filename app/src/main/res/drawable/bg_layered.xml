@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://android.com">
+    <!-- Lớp màu trắng ở dưới -->
+    <item>
+        <color android:color="#FFFFFF"/>
+    </item>
+    <!-- Lớp màu đen ở trên -->
+    <item>
+        <color android:color="#131313"/>
+    </item>
+</layer-list>

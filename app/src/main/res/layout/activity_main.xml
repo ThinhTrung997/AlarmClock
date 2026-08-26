@@ -5,26 +5,21 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#131313">
+    android:background="@color/text_dark">
 
-    <!-- ================= HEADER ================= -->
+
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/header"
         android:layout_width="match_parent"
         android:layout_height="64dp"
-        android:background="#131313"
+        android:background="@color/text_dark"
         android:paddingStart="16dp"
         android:paddingEnd="16dp"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
 
-        <!-- Icon trái -->
-
-
-
-        <!-- Tiêu đề -->
 
         <TextView
             android:id="@+id/tvTitle"
@@ -39,13 +34,12 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <!-- Icon phải -->
 
         <ImageView
             android:id="@+id/iconRight"
             android:layout_width="20dp"
             android:layout_height="20dp"
-            android:src="@drawable/image"
+            android:src="@drawable/images"
             android:contentDescription="More"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -53,8 +47,6 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-
-    <!-- ================= ALARM LIST ================= -->
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewAlarm"
@@ -72,7 +64,16 @@
         app:layout_constraintEnd_toEndOf="parent" />
 
 
-    <!-- ================= BOTTOM NAVIGATION ================= -->
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fabAdd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="28dp"
+        android:contentDescription="Add"
+        android:src="@drawable/ic_add"
+        app:layout_constraintBottom_toTopOf="@id/bottomNavigation"
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <LinearLayout
         android:id="@+id/bottomNavigation"
@@ -89,7 +90,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
 
-        <!-- ================= ALARM ================= -->
 
         <LinearLayout
             android:id="@+id/tabAlarm"
@@ -121,7 +121,6 @@
         </LinearLayout>
 
 
-        <!-- ================= WORLD CLOCK ================= -->
 
         <LinearLayout
             android:id="@+id/tabWorldClock"
@@ -153,7 +152,7 @@
         </LinearLayout>
 
 
-        <!-- ================= STOPWATCH ================= -->
+
 
         <LinearLayout
             android:id="@+id/tabStopwatch"
