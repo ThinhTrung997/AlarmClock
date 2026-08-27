@@ -69,120 +69,18 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
-        android:layout_marginBottom="28dp"
+        android:layout_marginBottom="24dp"
         android:contentDescription="Add"
         android:src="@drawable/ic_add"
-        app:layout_constraintBottom_toTopOf="@id/bottomNavigation"
+        app:layout_constraintBottom_toBottomOf="@+id/recyclerViewAlarm"
         app:layout_constraintEnd_toEndOf="parent" />
 
-    <LinearLayout
+    <include
         android:id="@+id/bottomNavigation"
-        android:layout_width="match_parent"
+        layout="@layout/bottom_navigation"
+        android:layout_width="0dp"
         android:layout_height="80dp"
-        android:orientation="horizontal"
-        android:gravity="center"
-        android:background="#1C1B1B"
-        android:paddingStart="26dp"
-        android:paddingEnd="26dp"
-        android:paddingTop="12dp"
-        android:paddingBottom="12dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
-
-
-        <LinearLayout
-            android:id="@+id/tabAlarm"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:gravity="center"
-            android:background="@drawable/bg_bottom_nav_active"
-            android:paddingStart="20dp"
-            android:paddingEnd="20dp"
-            android:paddingTop="4dp"
-            android:paddingBottom="4dp">
-
-            <ImageView
-                android:layout_width="21dp"
-                android:layout_height="20dp"
-                android:src="@drawable/icon_alarm"
-                android:contentDescription="Alarm" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
-                android:text="Alarm"
-                android:textColor="#0D0096"
-                android:textSize="12sp"
-                android:gravity="center" />
-
-        </LinearLayout>
-
-
-
-        <LinearLayout
-            android:id="@+id/tabWorldClock"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:orientation="vertical"
-            android:gravity="center"
-            android:paddingStart="20dp"
-            android:paddingEnd="20dp"
-            android:paddingTop="4dp"
-            android:paddingBottom="4dp">
-
-            <ImageView
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:src="@drawable/icon_world_clock"
-                android:contentDescription="World Clock" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
-                android:text="World Clock"
-                android:textColor="#C7C4D7"
-                android:textSize="12sp"
-                android:gravity="center" />
-
-        </LinearLayout>
-
-
-
-
-        <LinearLayout
-            android:id="@+id/tabStopwatch"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:orientation="vertical"
-            android:gravity="center"
-            android:paddingStart="20dp"
-            android:paddingEnd="20dp"
-            android:paddingTop="4dp"
-            android:paddingBottom="4dp">
-
-            <ImageView
-                android:layout_width="18dp"
-                android:layout_height="21dp"
-                android:src="@drawable/icon_stopwatch"
-                android:contentDescription="Stopwatch" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
-                android:text="Stopwatch"
-                android:textColor="#C7C4D7"
-                android:textSize="12sp"
-                android:gravity="center" />
-
-        </LinearLayout>
-
-    </LinearLayout>
-
+        app:layout_constraintEnd_toEndOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

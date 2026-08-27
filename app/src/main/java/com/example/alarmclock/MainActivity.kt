@@ -5,6 +5,7 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
+import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
@@ -41,7 +42,17 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        val tabWorldClock = findViewById<LinearLayout>(R.id.tabWorldClock)
 
+        val tabStopwatch = findViewById<LinearLayout>(R.id.tabStopwatch)
+
+        tabWorldClock.setOnClickListener {
+            startActivity(Intent(this, WorldClockActivity::class.java))
+        }
+
+        tabStopwatch.setOnClickListener {
+            startActivity(Intent(this, StopwatchActivity::class.java))
+        }
         checkPermissions()
         initViews()
         loadAlarms()
@@ -104,6 +115,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+
     private fun loadAlarms() {
         val storedAlarms = AlarmStorage.getAlarms(this)
         alarmList.clear()
@@ -137,4 +149,5 @@ class MainActivity : AppCompatActivity() {
             .setNegativeButton("Hủy", null)
             .show()
     }
+
 }
