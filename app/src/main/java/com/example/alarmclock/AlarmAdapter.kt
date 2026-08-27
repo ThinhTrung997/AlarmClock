@@ -11,7 +11,8 @@ import androidx.recyclerview.widget.RecyclerView
 class AlarmAdapter(
     private val alarmList: MutableList<Alarm>,
     private val onItemClick: ((position: Int, alarm: Alarm) -> Unit)? = null,
-    private val onAlarmToggle: ((position: Int, isEnabled: Boolean) -> Unit)? = null
+    private val onAlarmToggle: ((position: Int, isEnabled: Boolean, alarm: Alarm) -> Unit)? = null,
+    private val onAlarmLongClick: ((position: Int, alarm: Alarm) -> Unit)? = null
 ) : RecyclerView.Adapter<AlarmAdapter.AlarmViewHolder>() {
 
     class AlarmViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -38,11 +39,22 @@ class AlarmAdapter(
 
         updateCardAppearance(holder, alarm.isEnabled)
 
-        // Click on the entire card to Edit
+        // Click on card to Edit
         holder.itemView.setOnClickListener {
-            val currentPos = holder.adapterPosition
-            if (currentPos != RecyclerView.NO_POSITION) {
+            val currentPos = holder.bindingAdapterPosition
+            if (currentPos != RecyclerView.NO_POSITION && currentPos < alarmList.size) {
                 onItemClick?.invoke(currentPos, alarmList[currentPos])
+            }
+        }
+
+        // Long click on card to Delete
+        holder.itemView.setOnLongClickListener {
+            val currentPos = holder.bindingAdapterPosition
+            if (currentPos != RecyclerView.NO_POSITION && currentPos < alarmList.size) {
+                onAlarmLongClick?.invoke(currentPos, alarmList[currentPos])
+                true
+            } else {
+                false
             }
         }
 
@@ -51,11 +63,12 @@ class AlarmAdapter(
         holder.switchAlarm.isChecked = alarm.isEnabled
 
         holder.switchAlarm.setOnCheckedChangeListener { _, isChecked ->
-            val currentPos = holder.adapterPosition
-            if (currentPos != RecyclerView.NO_POSITION) {
-                alarmList[currentPos] = alarmList[currentPos].copy(isEnabled = isChecked)
+            val currentPos = holder.bindingAdapterPosition
+            if (currentPos != RecyclerView.NO_POSITION && currentPos < alarmList.size) {
+                val updatedAlarm = alarmList[currentPos].copy(isEnabled = isChecked)
+                alarmList[currentPos] = updatedAlarm
                 updateCardAppearance(holder, isChecked)
-                onAlarmToggle?.invoke(currentPos, isChecked)
+                onAlarmToggle?.invoke(currentPos, isChecked, updatedAlarm)
             }
         }
     }

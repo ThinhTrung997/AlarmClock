@@ -49,7 +49,7 @@
             android:layout_height="wrap_content"
             android:text="Save"
             android:textColor="#C0C1FF"
-            android:textSize="14sp"
+            android:textSize="15sp"
             android:textStyle="bold"
             android:padding="8dp"
             android:background="?attr/selectableItemBackgroundBorderless"
@@ -78,100 +78,64 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <!-- 2.1 TIME PICKER SECTION -->
+            <!-- 2.1 TIME PICKER SECTION (NumberPicker) -->
             <LinearLayout
                 android:id="@+id/layoutTimePicker"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:orientation="horizontal"
-                android:paddingVertical="20dp">
+                android:paddingVertical="16dp">
 
-                <!-- Hours Box -->
+                <!-- Hours Box with NumberPicker -->
                 <LinearLayout
                     android:id="@+id/boxHours"
-                    android:layout_width="88dp"
-                    android:layout_height="120dp"
+                    android:layout_width="92dp"
+                    android:layout_height="140dp"
                     android:background="@drawable/bg_time_box"
                     android:gravity="center"
-                    android:orientation="vertical">
+                    android:paddingVertical="4dp">
 
-                    <TextView
-                        android:id="@+id/tvHourPrev"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="05"
-                        android:textColor="#5A5A62"
-                        android:textSize="14sp" />
-
-                    <TextView
-                        android:id="@+id/tvHourCurrent"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="06"
-                        android:textColor="#C0C1FF"
-                        android:textSize="38sp"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:id="@+id/tvHourNext"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="07"
-                        android:textColor="#5A5A62"
-                        android:textSize="14sp" />
+                    <NumberPicker
+                        android:id="@+id/npHour"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:theme="@style/CustomNumberPickerTheme"
+                        android:descendantFocusability="blocksDescendants" />
                 </LinearLayout>
 
                 <!-- Colon separator -->
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="12dp"
+                    android:layout_marginHorizontal="10dp"
                     android:text=":"
                     android:textColor="#FFFFFF"
                     android:textSize="36sp"
                     android:textStyle="bold" />
 
-                <!-- Minutes Box -->
+                <!-- Minutes Box with NumberPicker -->
                 <LinearLayout
                     android:id="@+id/boxMinutes"
-                    android:layout_width="88dp"
-                    android:layout_height="120dp"
+                    android:layout_width="92dp"
+                    android:layout_height="140dp"
                     android:background="@drawable/bg_time_box"
                     android:gravity="center"
-                    android:orientation="vertical">
+                    android:paddingVertical="4dp">
 
-                    <TextView
-                        android:id="@+id/tvMinutePrev"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="29"
-                        android:textColor="#5A5A62"
-                        android:textSize="14sp" />
-
-                    <TextView
-                        android:id="@+id/tvMinuteCurrent"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="30"
-                        android:textColor="#FFFFFF"
-                        android:textSize="38sp"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:id="@+id/tvMinuteNext"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="31"
-                        android:textColor="#5A5A62"
-                        android:textSize="14sp" />
+                    <NumberPicker
+                        android:id="@+id/npMinute"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:theme="@style/CustomNumberPickerTheme"
+                        android:descendantFocusability="blocksDescendants" />
                 </LinearLayout>
 
                 <!-- AM / PM Selector -->
                 <LinearLayout
                     android:id="@+id/layoutAmPm"
-                    android:layout_width="52dp"
-                    android:layout_height="120dp"
+                    android:layout_width="56dp"
+                    android:layout_height="140dp"
                     android:layout_marginStart="14dp"
                     android:background="@drawable/bg_ampm_container"
                     android:padding="4dp"
@@ -187,7 +151,7 @@
                         android:gravity="center"
                         android:text="AM"
                         android:textColor="#0D0096"
-                        android:textSize="13sp"
+                        android:textSize="14sp"
                         android:textStyle="bold" />
 
                     <!-- PM Button -->
@@ -199,7 +163,7 @@
                         android:gravity="center"
                         android:text="PM"
                         android:textColor="#8E8E93"
-                        android:textSize="13sp"
+                        android:textSize="14sp"
                         android:textStyle="bold" />
                 </LinearLayout>
 
@@ -470,6 +434,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:checked="true"
+                    app:thumbTint="@color/switch_thumb_selector"
+                    app:trackTint="@color/switch_track_selector"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintBottom_toBottomOf="parent" />

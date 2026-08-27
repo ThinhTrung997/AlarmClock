@@ -1,9 +1,17 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
     <style name="Base.Theme.AlarmClock" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Customize your light theme here. -->
-        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+        <item name="android:forceDarkAllowed" tools:targetApi="q">false</item>
+        <item name="colorPrimary">#C0C1FF</item>
+        <item name="colorOnPrimary">#0D0096</item>
+        <item name="android:windowBackground">#131315</item>
     </style>
 
     <style name="Theme.AlarmClock" parent="Base.Theme.AlarmClock" />
+
+    <style name="CustomNumberPickerTheme" parent="Theme.Material3.DayNight">
+        <item name="android:textColorPrimary">#FFFFFF</item>
+        <item name="android:textSize">32sp</item>
+        <item name="android:colorControlNormal">#353340</item>
+    </style>
 </resources>
