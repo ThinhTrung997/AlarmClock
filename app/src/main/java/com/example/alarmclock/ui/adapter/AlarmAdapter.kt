@@ -1,11 +1,11 @@
 package com.example.alarmclock.ui.adapter
 
-import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.appcompat.widget.SwitchCompat
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.example.alarmclock.R
 import com.example.alarmclock.model.Alarm
@@ -76,16 +76,25 @@ class AlarmAdapter(
     }
 
     private fun updateCardAppearance(holder: AlarmViewHolder, isEnabled: Boolean) {
+        val context = holder.itemView.context
         if (isEnabled) {
-            holder.tvTime.setTextColor(Color.parseColor("#FFFFFF"))
-            holder.tvAmPm.setTextColor(Color.parseColor("#FFFFFF"))
-            holder.tvTitle.setTextColor(Color.parseColor("#C7C4D7"))
-            holder.tvRepeat.setTextColor(Color.parseColor("#C0C1FF"))
+            val colorPrimary = ContextCompat.getColor(context, R.color.text_primary)
+            val colorSecondary = ContextCompat.getColor(context, R.color.text_secondary)
+            val colorAccent = ContextCompat.getColor(context, R.color.accent_blue)
+
+            holder.tvTime.setTextColor(colorPrimary)
+            holder.tvAmPm.setTextColor(colorPrimary)
+            holder.tvTitle.setTextColor(colorSecondary)
+            holder.tvRepeat.setTextColor(colorAccent)
+            holder.itemView.alpha = 1.0f
         } else {
-            holder.tvTime.setTextColor(Color.parseColor("#63636E"))
-            holder.tvAmPm.setTextColor(Color.parseColor("#63636E"))
-            holder.tvTitle.setTextColor(Color.parseColor("#63636E"))
-            holder.tvRepeat.setTextColor(Color.parseColor("#63636E"))
+            val colorDisabled = ContextCompat.getColor(context, R.color.text_disabled)
+
+            holder.tvTime.setTextColor(colorDisabled)
+            holder.tvAmPm.setTextColor(colorDisabled)
+            holder.tvTitle.setTextColor(colorDisabled)
+            holder.tvRepeat.setTextColor(colorDisabled)
+            holder.itemView.alpha = 0.6f
         }
     }
 

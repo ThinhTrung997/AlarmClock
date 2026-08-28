@@ -20,6 +20,9 @@ import com.example.alarmclock.util.AlarmScheduler
 import com.example.alarmclock.util.NavigationHelper
 import com.example.alarmclock.util.NavigationTab
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import android.widget.ImageView
+import com.example.alarmclock.data.SettingsStorage
+import com.example.alarmclock.ui.settings.SettingsActivity
 
 class MainActivity : AppCompatActivity() {
 
@@ -46,6 +49,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        SettingsStorage.initAppTheme(this)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
@@ -71,6 +75,12 @@ class MainActivity : AppCompatActivity() {
 
     private fun initViews() {
         recyclerView = findViewById(R.id.recyclerViewAlarm)
+
+        val iconRight = findViewById<ImageView>(R.id.iconRight)
+        iconRight?.setOnClickListener {
+            val intent = Intent(this, SettingsActivity::class.java)
+            startActivity(intent)
+        }
 
         alarmAdapter = AlarmAdapter(
             alarmList = alarmList,

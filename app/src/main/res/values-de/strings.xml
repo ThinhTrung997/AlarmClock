@@ -1,0 +1,26 @@
+<resources>
+    <string name="app_name">Wecker</string>
+    <string name="title_alarms">Wecker</string>
+    <string name="title_world_clock">Weltzeituhr</string>
+    <string name="title_stopwatch">Stoppuhr</string>
+    <string name="title_settings">Einstellungen</string>
+    <string name="title_select_language">Sprache auswählen</string>
+    <string name="title_add_city">Stadt hinzufügen</string>
+    <string name="hint_search_city">Stadt suchen...</string>
+    <string name="tab_alarm">Wecker</string>
+    <string name="tab_world_clock">Weltzeituhr</string>
+    <string name="tab_stopwatch">Stoppuhr</string>
+    <string name="section_clock">Uhr</string>
+    <string name="setting_language">Sprache</string>
+    <string name="setting_theme_mode">Design</string>
+    <string name="setting_clock_type">Uhrentyp</string>
+    <string name="setting_gradual_volume">Lautstärke langsam steigern</string>
+    <string name="setting_gradual_volume_sub">Beginnt leise und wird lauter</string>
+    <string name="theme_light">Heller Modus</string>
+    <string name="theme_dark">Dunkler Modus</string>
+    <string name="theme_system">Systemstandard</string>
+    <string name="clock_analog">Analog</string>
+    <string name="clock_digital">Digital</string>
+    <string name="cancel">Abbrechen</string>
+    <string name="ok">OK</string>
+</resources>

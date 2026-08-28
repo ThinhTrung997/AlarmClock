@@ -2,12 +2,12 @@ package com.example.alarmclock.util
 
 import android.app.Activity
 import android.content.Intent
-import android.graphics.Color
 import android.graphics.PorterDuff
 import android.graphics.PorterDuffColorFilter
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import com.example.alarmclock.R
 import com.example.alarmclock.ui.alarm.MainActivity
 import com.example.alarmclock.ui.stopwatch.StopwatchActivity
@@ -35,11 +35,11 @@ object NavigationHelper {
         val ivTabStopwatch = activity.findViewById<ImageView?>(R.id.ivTabStopwatch)
         val tvTabStopwatch = activity.findViewById<TextView?>(R.id.tvTabStopwatch)
 
-        val activeTextColor = Color.parseColor("#0D0096")
+        val activeTextColor = ContextCompat.getColor(activity, R.color.bottom_nav_active_text)
         val activeBgRes = R.drawable.bg_bottom_nav_active
 
-        val inactiveTextColor = Color.parseColor("#C7C4D7")
-        val inactiveIconColor = Color.parseColor("#C7C4D7")
+        val inactiveTextColor = ContextCompat.getColor(activity, R.color.bottom_nav_inactive)
+        val inactiveIconColor = ContextCompat.getColor(activity, R.color.bottom_nav_inactive)
 
         // Style Tab: ALARM
         if (currentTab == NavigationTab.ALARM) {

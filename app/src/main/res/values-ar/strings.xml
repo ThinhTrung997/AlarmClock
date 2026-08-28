@@ -1,0 +1,26 @@
+<resources>
+    <string name="app_name">المنبه</string>
+    <string name="title_alarms">المنبهات</string>
+    <string name="title_world_clock">ساعة العالم</string>
+    <string name="title_stopwatch">ساعة التوقيف</string>
+    <string name="title_settings">الإعدادات</string>
+    <string name="title_select_language">اختر اللغة</string>
+    <string name="title_add_city">إضافة مدينة</string>
+    <string name="hint_search_city">بحث عن مدينة...</string>
+    <string name="tab_alarm">منبه</string>
+    <string name="tab_world_clock">ساعة العالم</string>
+    <string name="tab_stopwatch">ساعة التوقيف</string>
+    <string name="section_clock">الساعة</string>
+    <string name="setting_language">اللغة</string>
+    <string name="setting_theme_mode">المظهر</string>
+    <string name="setting_clock_type">نوع الساعة</string>
+    <string name="setting_gradual_volume">زيادة تدريجية في الصوت</string>
+    <string name="setting_gradual_volume_sub">يبدأ هادئاً ثم يرتفع</string>
+    <string name="theme_light">الوضع الفاتح</string>
+    <string name="theme_dark">الوضع الداكن</string>
+    <string name="theme_system">افتراضي النظام</string>
+    <string name="clock_analog">عقارب</string>
+    <string name="clock_digital">رقمي</string>
+    <string name="cancel">إلغاء</string>
+    <string name="ok">موافق</string>
+</resources>

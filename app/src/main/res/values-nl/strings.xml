@@ -1,0 +1,26 @@
+<resources>
+    <string name="app_name">Wekker</string>
+    <string name="title_alarms">Wekkers</string>
+    <string name="title_world_clock">Wereldklok</string>
+    <string name="title_stopwatch">Stopwatch</string>
+    <string name="title_settings">Instellingen</string>
+    <string name="title_select_language">Taal selecteren</string>
+    <string name="title_add_city">Stad toevoegen</string>
+    <string name="hint_search_city">Stad zoeken...</string>
+    <string name="tab_alarm">Wekker</string>
+    <string name="tab_world_clock">Wereldklok</string>
+    <string name="tab_stopwatch">Stopwatch</string>
+    <string name="section_clock">Klok</string>
+    <string name="setting_language">Taal</string>
+    <string name="setting_theme_mode">Themamodus</string>
+    <string name="setting_clock_type">Kloktype</string>
+    <string name="setting_gradual_volume">Geleidelijk toenemend volume</string>
+    <string name="setting_gradual_volume_sub">Begint zacht en wordt luider</string>
+    <string name="theme_light">Lichte modus</string>
+    <string name="theme_dark">Donkere modus</string>
+    <string name="theme_system">Systeemstandaard</string>
+    <string name="clock_analog">Analoog</string>
+    <string name="clock_digital">Digitaal</string>
+    <string name="cancel">Annuleren</string>
+    <string name="ok">OK</string>
+</resources>

@@ -7,6 +7,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.alarmclock.R
 import com.example.alarmclock.model.WorldClockCity
+import com.example.alarmclock.data.SettingsStorage
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
@@ -41,16 +42,26 @@ class WorldClockAdapter(
         val localTimeZone = TimeZone.getDefault()
         val now = Date()
 
+        // Read time format preference
+        val is24h = SettingsStorage.getTimeFormat(holder.itemView.context) == SettingsStorage.TIME_FORMAT_24H
+        val pattern = if (is24h) "HH:mm" else "hh:mm"
+
         // Format Time
-        val timeFormat = SimpleDateFormat("hh:mm", Locale.getDefault()).apply {
-            timeZone = targetTimeZone
-        }
-        val amPmFormat = SimpleDateFormat("a", Locale.US).apply {
+        val timeFormat = SimpleDateFormat(pattern, Locale.getDefault()).apply {
             timeZone = targetTimeZone
         }
 
         holder.tvCityTime.text = timeFormat.format(now)
-        holder.tvCityAmPm.text = amPmFormat.format(now).uppercase()
+        if (is24h) {
+            holder.tvCityAmPm.text = ""
+            holder.tvCityAmPm.visibility = android.view.View.GONE
+        } else {
+            val amPmFormat = SimpleDateFormat("a", Locale.US).apply {
+                timeZone = targetTimeZone
+            }
+            holder.tvCityAmPm.text = amPmFormat.format(now).uppercase()
+            holder.tvCityAmPm.visibility = android.view.View.VISIBLE
+        }
 
         // Calculate offset difference
         val localOffset = localTimeZone.getOffset(now.time)

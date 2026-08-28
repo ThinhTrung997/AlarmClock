@@ -1,0 +1,26 @@
+<resources>
+    <string name="app_name">Réveil</string>
+    <string name="title_alarms">Alarmes</string>
+    <string name="title_world_clock">Horloge mondiale</string>
+    <string name="title_stopwatch">Chronomètre</string>
+    <string name="title_settings">Paramètres</string>
+    <string name="title_select_language">Sélectionner la langue</string>
+    <string name="title_add_city">Ajouter une ville</string>
+    <string name="hint_search_city">Rechercher une ville...</string>
+    <string name="tab_alarm">Alarme</string>
+    <string name="tab_world_clock">Horloge</string>
+    <string name="tab_stopwatch">Chrono</string>
+    <string name="section_clock">Horloge</string>
+    <string name="setting_language">Langue</string>
+    <string name="setting_theme_mode">Mode de thème</string>
+    <string name="setting_clock_type">Type d\'horloge</string>
+    <string name="setting_gradual_volume">Augmentation progressive du volume</string>
+    <string name="setting_gradual_volume_sub">Commence doucement et augmente</string>
+    <string name="theme_light">Mode Clair</string>
+    <string name="theme_dark">Mode Sombre</string>
+    <string name="theme_system">Par défaut du système</string>
+    <string name="clock_analog">Analogique</string>
+    <string name="clock_digital">Numérique</string>
+    <string name="cancel">Annuler</string>
+    <string name="ok">OK</string>
+</resources>

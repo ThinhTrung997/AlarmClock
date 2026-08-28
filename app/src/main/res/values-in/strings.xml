@@ -1,0 +1,26 @@
+<resources>
+    <string name="app_name">Jam Alarm</string>
+    <string name="title_alarms">Alarm</string>
+    <string name="title_world_clock">Jam Dunia</string>
+    <string name="title_stopwatch">Stopwatch</string>
+    <string name="title_settings">Pengaturan</string>
+    <string name="title_select_language">Pilih Bahasa</string>
+    <string name="title_add_city">Tambah Kota</string>
+    <string name="hint_search_city">Cari kota...</string>
+    <string name="tab_alarm">Alarm</string>
+    <string name="tab_world_clock">Jam Dunia</string>
+    <string name="tab_stopwatch">Stopwatch</string>
+    <string name="section_clock">Jam</string>
+    <string name="setting_language">Bahasa</string>
+    <string name="setting_theme_mode">Mode Tema</string>
+    <string name="setting_clock_type">Tipe Jam</string>
+    <string name="setting_gradual_volume">Peningkatan Volume Bertahap</string>
+    <string name="setting_gradual_volume_sub">Mulai lembut dan semakin keras</string>
+    <string name="theme_light">Mode Terang</string>
+    <string name="theme_dark">Mode Gelap</string>
+    <string name="theme_system">Default Sistem</string>
+    <string name="clock_analog">Analog</string>
+    <string name="clock_digital">Digital</string>
+    <string name="cancel">Batal</string>
+    <string name="ok">OK</string>
+</resources>

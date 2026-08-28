@@ -1,0 +1,26 @@
+<resources>
+    <string name="app_name">目覚まし時計</string>
+    <string name="title_alarms">アラーム</string>
+    <string name="title_world_clock">世界時計</string>
+    <string name="title_stopwatch">ストップウォッチ</string>
+    <string name="title_settings">設定</string>
+    <string name="title_select_language">言語を選択</string>
+    <string name="title_add_city">都市を追加</string>
+    <string name="hint_search_city">都市を検索...</string>
+    <string name="tab_alarm">アラーム</string>
+    <string name="tab_world_clock">世界時計</string>
+    <string name="tab_stopwatch">ストップウォッチ</string>
+    <string name="section_clock">時計</string>
+    <string name="setting_language">言語</string>
+    <string name="setting_theme_mode">テーマモード</string>
+    <string name="setting_clock_type">時計の種類</string>
+    <string name="setting_gradual_volume">音量を徐々に上げる</string>
+    <string name="setting_gradual_volume_sub">小さく始まり徐々に大きくなります</string>
+    <string name="theme_light">ライトモード</string>
+    <string name="theme_dark">ダークモード</string>
+    <string name="theme_system">システムデフォルト</string>
+    <string name="clock_analog">アナログ</string>
+    <string name="clock_digital">デジタル</string>
+    <string name="cancel">キャンセル</string>
+    <string name="ok">OK</string>
+</resources>

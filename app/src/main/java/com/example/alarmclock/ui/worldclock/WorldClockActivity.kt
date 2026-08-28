@@ -19,6 +19,7 @@ import com.example.alarmclock.ui.adapter.WorldClockAdapter
 import com.example.alarmclock.util.NavigationHelper
 import com.example.alarmclock.util.NavigationTab
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.example.alarmclock.data.SettingsStorage
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
@@ -77,6 +78,13 @@ class WorldClockActivity : AppCompatActivity() {
         tvLocalAmPm = findViewById(R.id.tvLocalAmPm)
         rvWorldClock = findViewById(R.id.rvWorldClock)
 
+
+        val btnMoreHeader = findViewById<ImageView>(R.id.btnMoreHeader)
+        btnMoreHeader?.setOnClickListener {
+            val intent = Intent(this, com.example.alarmclock.ui.settings.SettingsActivity::class.java)
+            startActivity(intent)
+        }
+
         val btnSearchHeader = findViewById<ImageView>(R.id.btnSearchHeader)
         btnSearchHeader.setOnClickListener {
             val intent = Intent(this, AddCityActivity::class.java)
@@ -111,11 +119,19 @@ class WorldClockActivity : AppCompatActivity() {
 
     private fun updateLocalTime() {
         val now = Date()
-        val timeFormat = SimpleDateFormat("hh:mm", Locale.getDefault())
-        val amPmFormat = SimpleDateFormat("a", Locale.US)
+        val is24h = SettingsStorage.getTimeFormat(this) == SettingsStorage.TIME_FORMAT_24H
+        val pattern = if (is24h) "HH:mm" else "hh:mm"
+        val timeFormat = SimpleDateFormat(pattern, Locale.getDefault())
 
         tvLocalTime.text = timeFormat.format(now)
-        tvLocalAmPm.text = amPmFormat.format(now).uppercase()
+        if (is24h) {
+            tvLocalAmPm.text = ""
+            tvLocalAmPm.visibility = android.view.View.GONE
+        } else {
+            val amPmFormat = SimpleDateFormat("a", Locale.US)
+            tvLocalAmPm.text = amPmFormat.format(now).uppercase()
+            tvLocalAmPm.visibility = android.view.View.VISIBLE
+        }
     }
 
     private fun loadCities() {

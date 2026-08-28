@@ -1,0 +1,26 @@
+<resources>
+    <string name="app_name">알람 시계</string>
+    <string name="title_alarms">알람</string>
+    <string name="title_world_clock">세계 시계</string>
+    <string name="title_stopwatch">스톱워치</string>
+    <string name="title_settings">설정</string>
+    <string name="title_select_language">언어 선택</string>
+    <string name="title_add_city">도시 추가</string>
+    <string name="hint_search_city">도시 검색...</string>
+    <string name="tab_alarm">알람</string>
+    <string name="tab_world_clock">세계 시계</string>
+    <string name="tab_stopwatch">스톱워치</string>
+    <string name="section_clock">시계</string>
+    <string name="setting_language">언어</string>
+    <string name="setting_theme_mode">테마 모드</string>
+    <string name="setting_clock_type">시계 유형</string>
+    <string name="setting_gradual_volume">점진적 볼륨 증가</string>
+    <string name="setting_gradual_volume_sub">부드럽게 시작하여 점차 커짐</string>
+    <string name="theme_light">라이트 모드</string>
+    <string name="theme_dark">다크 모드</string>
+    <string name="theme_system">시스템 기본값</string>
+    <string name="clock_analog">아날로그</string>
+    <string name="clock_digital">디지털</string>
+    <string name="cancel">취소</string>
+    <string name="ok">확인</string>
+</resources>

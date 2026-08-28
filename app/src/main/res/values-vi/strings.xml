@@ -1,0 +1,26 @@
+<resources>
+    <string name="app_name">Báo Thức</string>
+    <string name="title_alarms">Báo thức</string>
+    <string name="title_world_clock">Giờ quốc tế</string>
+    <string name="title_stopwatch">Bấm giờ</string>
+    <string name="title_settings">Cài đặt</string>
+    <string name="title_select_language">Chọn ngôn ngữ</string>
+    <string name="title_add_city">Thêm thành phố</string>
+    <string name="hint_search_city">Tìm kiếm thành phố...</string>
+    <string name="tab_alarm">Báo thức</string>
+    <string name="tab_world_clock">Giờ quốc tế</string>
+    <string name="tab_stopwatch">Bấm giờ</string>
+    <string name="section_clock">Đồng hồ</string>
+    <string name="setting_language">Ngôn ngữ</string>
+    <string name="setting_theme_mode">Chế độ giao diện</string>
+    <string name="setting_clock_type">Kiểu đồng hồ</string>
+    <string name="setting_gradual_volume">Tăng dần âm lượng</string>
+    <string name="setting_gradual_volume_sub">Bắt đầu nhỏ và lớn dần</string>
+    <string name="theme_light">Chế độ Sáng</string>
+    <string name="theme_dark">Chế độ Tối</string>
+    <string name="theme_system">Mặc định hệ thống</string>
+    <string name="clock_analog">Kim (Analog)</string>
+    <string name="clock_digital">Số (Digital)</string>
+    <string name="cancel">Hủy</string>
+    <string name="ok">Đồng ý</string>
+</resources>

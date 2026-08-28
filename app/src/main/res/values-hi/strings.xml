@@ -1,0 +1,26 @@
+<resources>
+    <string name="app_name">अलार्म घड़ी</string>
+    <string name="title_alarms">अलार्म</string>
+    <string name="title_world_clock">विश्व घड़ी</string>
+    <string name="title_stopwatch">स्टॉपवॉच</string>
+    <string name="title_settings">सेटिंग्स</string>
+    <string name="title_select_language">भाषा चुनें</string>
+    <string name="title_add_city">शहर जोड़ें</string>
+    <string name="hint_search_city">शहर खोजें...</string>
+    <string name="tab_alarm">अलार्म</string>
+    <string name="tab_world_clock">विश्व घड़ी</string>
+    <string name="tab_stopwatch">स्टॉपवॉच</string>
+    <string name="section_clock">घड़ी</string>
+    <string name="setting_language">भाषा</string>
+    <string name="setting_theme_mode">थीम मोड</string>
+    <string name="setting_clock_type">घड़ी का प्रकार</string>
+    <string name="setting_gradual_volume">क्रमशः वॉल्यूम बढ़ाएं</string>
+    <string name="setting_gradual_volume_sub">धीमे से शुरू होकर तेज होता है</string>
+    <string name="theme_light">लाइट मोड</string>
+    <string name="theme_dark">डार्क मोड</string>
+    <string name="theme_system">सिस्टम डिफ़ॉल्ट</string>
+    <string name="clock_analog">एनालॉग</string>
+    <string name="clock_digital">डिजिटल</string>
+    <string name="cancel">रद्द करें</string>
+    <string name="ok">ठीक है</string>
+</resources>

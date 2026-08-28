@@ -1,0 +1,17 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="28dp"
+    android:height="28dp"
+    android:viewportWidth="100"
+    android:viewportHeight="100">
+    <group>
+        <clip-path android:pathData="M50,50m-50,0a50,50 0 1,0 100,0a50,50 0 1,0 -100,0" />
+        <!-- Red Background -->
+        <path
+            android:fillColor="#DA251D"
+            android:pathData="M0,0h100v100h-100z" />
+        <!-- Gold 5-point Star -->
+        <path
+            android:fillColor="#FFFF00"
+            android:pathData="M50,20 L58.9,47.4 L87.8,47.4 L64.4,64.3 L73.3,91.7 L50,74.8 L26.7,91.7 L35.6,64.3 L12.2,47.4 L41.1,47.4 Z" />
+    </group>
+</vector>

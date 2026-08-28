@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/layoutLanguageItem"
+    android:layout_width="match_parent"
+    android:layout_height="56dp"
+    android:layout_marginStart="16dp"
+    android:layout_marginEnd="16dp"
+    android:layout_marginTop="3dp"
+    android:layout_marginBottom="3dp"
+    android:background="@drawable/bg_language_item_unselected"
+    android:clickable="true"
+    android:focusable="true"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:paddingStart="16dp"
+    android:paddingEnd="16dp">
+
+    <!-- Flag Icon -->
+    <ImageView
+        android:id="@+id/ivFlag"
+        android:layout_width="28dp"
+        android:layout_height="28dp"
+        android:scaleType="fitCenter"
+        android:contentDescription="Language Flag"
+        tools:src="@drawable/ic_flag_en" />
+
+    <!-- Language Name -->
+    <TextView
+        android:id="@+id/tvLanguageName"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_weight="1"
+        android:textColor="@color/text_primary"
+        android:textSize="16sp"
+        tools:text="English (Default)" />
+
+    <!-- Radio / Checkmark indicator -->
+    <ImageView
+        android:id="@+id/ivRadio"
+        android:layout_width="22dp"
+        android:layout_height="22dp"
+        android:src="@drawable/ic_radio_unchecked"
+        android:contentDescription="Selection Status" />
+
+</LinearLayout>

@@ -9,7 +9,7 @@
         android:layout_height="80dp"
         android:orientation="horizontal"
         android:gravity="center"
-        android:background="#1C1B1B"
+        android:background="@color/bottom_nav_bg"
         android:paddingStart="26dp"
         android:paddingEnd="26dp"
         android:paddingTop="12dp"
@@ -40,8 +40,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
-                android:text="Alarm"
-                android:textColor="#0D0096"
+                android:text="@string/tab_alarm"
+                android:textColor="@color/bottom_nav_active_text"
                 android:textSize="12sp"
                 android:gravity="center" />
 
@@ -71,8 +71,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
-                android:text="World Clock"
-                android:textColor="#C7C4D7"
+                android:text="@string/tab_world_clock"
+                android:textColor="@color/bottom_nav_inactive"
                 android:textSize="12sp"
                 android:gravity="center" />
 
@@ -102,8 +102,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
-                android:text="Stopwatch"
-                android:textColor="#C7C4D7"
+                android:text="@string/tab_stopwatch"
+                android:textColor="@color/bottom_nav_inactive"
                 android:textSize="12sp"
                 android:gravity="center" />
         </LinearLayout>

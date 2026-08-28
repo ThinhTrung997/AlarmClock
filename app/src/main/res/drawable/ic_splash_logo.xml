@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="120dp"
+    android:height="120dp"
+    android:viewportWidth="120"
+    android:viewportHeight="120">
+
+    <!-- Outer ring -->
+    <path
+        android:fillColor="#00000000"
+        android:strokeColor="#FFFFFF"
+        android:strokeWidth="5"
+        android:pathData="M60,10 A50,50 0 1,1 59.99,10 Z" />
+
+    <!-- Clock hands -->
+    <!-- Hour hand (pointing to ~10) -->
+    <path
+        android:strokeColor="#FFFFFF"
+        android:strokeWidth="5"
+        android:strokeLineCap="round"
+        android:fillColor="#00000000"
+        android:pathData="M60,60 L40,38" />
+
+    <!-- Minute hand (pointing to ~12) -->
+    <path
+        android:strokeColor="#FFFFFF"
+        android:strokeWidth="4"
+        android:strokeLineCap="round"
+        android:fillColor="#00000000"
+        android:pathData="M60,60 L60,24" />
+
+    <!-- Center dot -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M60,56 A4,4 0 1,1 59.99,56 Z" />
+
+    <!-- Bell top left -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M18,22 A6,6 0 0,1 30,22" />
+
+    <!-- Bell top right -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M90,22 A6,6 0 0,1 102,22" />
+
+    <!-- Bell handle left circle -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M21,18 A4,4 0 1,1 20.99,18 Z" />
+
+    <!-- Bell handle right circle -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M99,18 A4,4 0 1,1 98.99,18 Z" />
+
+</vector>

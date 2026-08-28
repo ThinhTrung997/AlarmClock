@@ -1,0 +1,26 @@
+<resources>
+    <string name="app_name">Alarma</string>
+    <string name="title_alarms">Alarmas</string>
+    <string name="title_world_clock">Reloj mundial</string>
+    <string name="title_stopwatch">Cronómetro</string>
+    <string name="title_settings">Ajustes</string>
+    <string name="title_select_language">Seleccionar idioma</string>
+    <string name="title_add_city">Añadir ciudad</string>
+    <string name="hint_search_city">Buscar ciudad...</string>
+    <string name="tab_alarm">Alarma</string>
+    <string name="tab_world_clock">Reloj mundial</string>
+    <string name="tab_stopwatch">Cronómetro</string>
+    <string name="section_clock">Reloj</string>
+    <string name="setting_language">Idioma</string>
+    <string name="setting_theme_mode">Modo de tema</string>
+    <string name="setting_clock_type">Tipo de reloj</string>
+    <string name="setting_gradual_volume">Aumento gradual del volumen</string>
+    <string name="setting_gradual_volume_sub">Empieza suave y aumenta el volumen</string>
+    <string name="theme_light">Modo Claro</string>
+    <string name="theme_dark">Modo Oscuro</string>
+    <string name="theme_system">Predeterminado del sistema</string>
+    <string name="clock_analog">Analógico</string>
+    <string name="clock_digital">Digital</string>
+    <string name="cancel">Cancelar</string>
+    <string name="ok">Aceptar</string>
+</resources>

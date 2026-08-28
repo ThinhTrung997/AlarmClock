@@ -1,0 +1,16 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="28dp"
+    android:height="28dp"
+    android:viewportWidth="100"
+    android:viewportHeight="100">
+    <group>
+        <clip-path android:pathData="M50,50m-50,0a50,50 0 1,0 100,0a50,50 0 1,0 -100,0" />
+        <path android:fillColor="#FFFFFF" android:pathData="M0,0h100v100h-100z" />
+        <!-- Taegeuk Red top -->
+        <path android:fillColor="#CD2E3A" android:pathData="M50,26 A24,24 0 0,1 50,74 A12,12 0 0,1 50,50 A12,12 0 0,0 50,26 Z" />
+        <!-- Taegeuk Blue bottom -->
+        <path android:fillColor="#0047A0" android:pathData="M50,74 A24,24 0 0,1 50,26 A12,12 0 0,1 50,50 A12,12 0 0,0 50,74 Z" />
+        <!-- Trigram markers -->
+        <path android:fillColor="#000000" android:pathData="M18,22h4v14h-4z M78,64h4v14h-4z M78,22h4v14h-4z M18,64h4v14h-4z" />
+    </group>
+</vector>

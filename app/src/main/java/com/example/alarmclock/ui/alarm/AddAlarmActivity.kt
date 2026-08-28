@@ -1,8 +1,8 @@
 package com.example.alarmclock.ui.alarm
 
 import android.app.Activity
+import android.app.DatePickerDialog
 import android.content.Intent
-import android.graphics.Color
 import android.media.RingtoneManager
 import android.net.Uri
 import android.os.Build
@@ -15,12 +15,16 @@ import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SwitchCompat
+import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.content.ContextCompat
 import com.example.alarmclock.R
 import com.example.alarmclock.data.AlarmStorage
 import com.example.alarmclock.model.Alarm
 import com.example.alarmclock.util.AlarmScheduler
 import com.google.android.material.button.MaterialButton
+import java.text.SimpleDateFormat
 import java.util.Calendar
+import java.util.Locale
 
 class AddAlarmActivity : AppCompatActivity() {
 
@@ -41,6 +45,9 @@ class AddAlarmActivity : AppCompatActivity() {
     private val selectedDays = mutableSetOf(0, 1, 2, 3, 4)
     private val dayButtons = mutableListOf<TextView>()
 
+    // Date selection: null = everyday (no specific date)
+    private var selectedDateCalendar: Calendar? = null
+
     // Ringtone: null means "use device default"
     private var selectedRingtoneUri: Uri? = null
     private var selectedRingtoneName: String = "Default Alarm"
@@ -53,6 +60,7 @@ class AddAlarmActivity : AppCompatActivity() {
     private lateinit var tvRepeatSummary: TextView
     private lateinit var switchVibration: SwitchCompat
     private lateinit var tvSoundName: TextView
+    private lateinit var tvSelectedDate: TextView
 
     // Ringtone picker launcher
     private val ringtoneLauncher = registerForActivityResult(
@@ -71,7 +79,6 @@ class AddAlarmActivity : AppCompatActivity() {
                     .getRingtone(this, uri)
                     ?.getTitle(this) ?: uri.lastPathSegment ?: "Custom"
             } else {
-                // User chose "None" or default
                 selectedRingtoneUri = null
                 selectedRingtoneName = "Default Alarm"
             }
@@ -89,6 +96,7 @@ class AddAlarmActivity : AppCompatActivity() {
         setupHeader()
         setupAmPmToggle()
         setupDayToggles()
+        setupDatePicker()
         setupSoundPicker()
         setupSaveActions()
     }
@@ -102,6 +110,7 @@ class AddAlarmActivity : AppCompatActivity() {
         tvRepeatSummary = findViewById(R.id.tvRepeatSummary)
         switchVibration = findViewById(R.id.switchVibration)
         tvSoundName = findViewById(R.id.tvSoundName)
+        tvSelectedDate = findViewById(R.id.tvSelectedDate)
     }
 
     private fun setupNumberPickers() {
@@ -132,7 +141,6 @@ class AddAlarmActivity : AppCompatActivity() {
             val repeat = intent.getStringExtra(EXTRA_REPEAT) ?: "Everyday"
             val isVibrate = intent.getBooleanExtra(EXTRA_IS_VIBRATE, true)
 
-            // Restore ringtone from stored alarm
             if (editAlarmId != -1L) {
                 val stored = AlarmStorage.getAlarms(this).find { it.id == editAlarmId }
                 if (stored?.ringtoneUri != null) {
@@ -212,16 +220,19 @@ class AddAlarmActivity : AppCompatActivity() {
     }
 
     private fun updateAmPmUi() {
+        val colorOnPrimary = ContextCompat.getColor(this, R.color.colorOnPrimary)
+        val colorSecondary = ContextCompat.getColor(this, R.color.text_secondary)
+
         if (isAm) {
             btnAm.setBackgroundResource(R.drawable.bg_ampm_selected)
-            btnAm.setTextColor(Color.parseColor("#0D0096"))
-            btnPm.setBackgroundColor(Color.TRANSPARENT)
-            btnPm.setTextColor(Color.parseColor("#8E8E93"))
+            btnAm.setTextColor(colorOnPrimary)
+            btnPm.background = null
+            btnPm.setTextColor(colorSecondary)
         } else {
             btnPm.setBackgroundResource(R.drawable.bg_ampm_selected)
-            btnPm.setTextColor(Color.parseColor("#0D0096"))
-            btnAm.setBackgroundColor(Color.TRANSPARENT)
-            btnAm.setTextColor(Color.parseColor("#8E8E93"))
+            btnPm.setTextColor(colorOnPrimary)
+            btnAm.background = null
+            btnAm.setTextColor(colorSecondary)
         }
     }
 
@@ -254,12 +265,15 @@ class AddAlarmActivity : AppCompatActivity() {
     }
 
     private fun updateDayButtonUi(textView: TextView, isSelected: Boolean) {
+        val colorOnPrimary = ContextCompat.getColor(this, R.color.colorOnPrimary)
+        val colorSecondary = ContextCompat.getColor(this, R.color.text_secondary)
+
         if (isSelected) {
             textView.setBackgroundResource(R.drawable.bg_day_selected)
-            textView.setTextColor(Color.parseColor("#0D0096"))
+            textView.setTextColor(colorOnPrimary)
         } else {
             textView.setBackgroundResource(R.drawable.bg_day_unselected)
-            textView.setTextColor(Color.parseColor("#8E8E93"))
+            textView.setTextColor(colorSecondary)
         }
     }
 
@@ -276,11 +290,55 @@ class AddAlarmActivity : AppCompatActivity() {
         }
     }
 
+    // ─── Date Picker ─────────────────────────────────────────────────────────
+
+    private fun setupDatePicker() {
+        val cardDate = findViewById<ConstraintLayout>(R.id.cardDate)
+        cardDate.setOnClickListener {
+            showDatePickerDialog()
+        }
+        updateDateDisplay()
+    }
+
+    private fun showDatePickerDialog() {
+        val cal = selectedDateCalendar ?: Calendar.getInstance()
+        val year = cal.get(Calendar.YEAR)
+        val month = cal.get(Calendar.MONTH)
+        val day = cal.get(Calendar.DAY_OF_MONTH)
+
+        val dialog = DatePickerDialog(this, { _, y, m, d ->
+            val picked = Calendar.getInstance().apply {
+                set(Calendar.YEAR, y)
+                set(Calendar.MONTH, m)
+                set(Calendar.DAY_OF_MONTH, d)
+            }
+            selectedDateCalendar = picked
+            updateDateDisplay()
+        }, year, month, day)
+
+        // Option to clear date (go back to everyday)
+        dialog.setButton(DatePickerDialog.BUTTON_NEUTRAL, "Clear Date") { _, _ ->
+            selectedDateCalendar = null
+            updateDateDisplay()
+        }
+
+        dialog.datePicker.minDate = Calendar.getInstance().timeInMillis
+        dialog.show()
+    }
+
+    private fun updateDateDisplay() {
+        if (selectedDateCalendar == null) {
+            tvSelectedDate.text = "Everyday (No specific date)"
+        } else {
+            val fmt = SimpleDateFormat("EEE, MMM dd yyyy", Locale.getDefault())
+            tvSelectedDate.text = fmt.format(selectedDateCalendar!!.time)
+        }
+    }
+
     // ─── Ringtone Picker ─────────────────────────────────────────────────────
 
     private fun setupSoundPicker() {
-        // Tap the entire Sound card to open the system ringtone picker
-        findViewById<androidx.constraintlayout.widget.ConstraintLayout>(R.id.cardSound)
+        findViewById<ConstraintLayout>(R.id.cardSound)
             .setOnClickListener { openRingtonePicker() }
     }
 
@@ -290,7 +348,6 @@ class AddAlarmActivity : AppCompatActivity() {
             putExtra(RingtoneManager.EXTRA_RINGTONE_TITLE, "Chọn nhạc báo thức")
             putExtra(RingtoneManager.EXTRA_RINGTONE_SHOW_SILENT, false)
             putExtra(RingtoneManager.EXTRA_RINGTONE_SHOW_DEFAULT, true)
-            // Pre-select current ringtone
             putExtra(RingtoneManager.EXTRA_RINGTONE_EXISTING_URI, selectedRingtoneUri)
         }
         ringtoneLauncher.launch(intent)

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Legacy compatibility -->
+    <color name="background_white">#1E1D24</color>
+    <color name="text_dark">#131315</color>
+
+    <!-- Theme & Backgrounds -->
+    <color name="bg_screen">#131315</color>
+    <color name="bg_header">#131315</color>
+    <color name="bg_card">#1E1D24</color>
+    <color name="bg_card_stroke">#292833</color>
+    <color name="bg_card_ripple">#26FFFFFF</color>
+    <color name="bg_selected_item">#292839</color>
+    <color name="stroke_selected_item">#44425E</color>
+    <color name="bg_dialog">#1E1D24</color>
+
+    <!-- Typography -->
+    <color name="text_primary">#F4F3F7</color>
+    <color name="text_secondary">#9E9CA8</color>
+    <color name="text_disabled">#585764</color>
+
+    <!-- Brand & Accent -->
+    <color name="colorPrimary">#C0C1FF</color>
+    <color name="colorOnPrimary">#0D0096</color>
+    <color name="accent_blue">#8F99FF</color>
+    <color name="section_header">#8F99FF</color>
+    <color name="icon_tint">#C7C4D7</color>
+    <color name="divider_color">#292833</color>
+
+    <!-- Bottom Navigation -->
+    <color name="bottom_nav_bg">#1C1B1B</color>
+    <color name="bottom_nav_active">#2D2C38</color>
+    <color name="bottom_nav_active_text">#C0C1FF</color>
+    <color name="bottom_nav_inactive">#7C7A8B</color>
+</resources>
