@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="12dp"
+    android:background="@drawable/bg_world_clock_card"
+    android:paddingStart="20dp"
+    android:paddingTop="16dp"
+    android:paddingEnd="20dp"
+    android:paddingBottom="16dp">
+
+    <!-- Subtle globe watermark on right side -->
+    <ImageView
+        android:id="@+id/ivGlobeWatermark"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:src="@drawable/ic_globe"
+        android:scaleType="fitCenter"
+        android:contentDescription="Globe"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!-- City Name -->
+    <TextView
+        android:id="@+id/tvCityName"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textColor="#FFFFFF"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/tvTimeOffset"
+        tools:text="Tokyo" />
+
+    <!-- Country Name -->
+    <TextView
+        android:id="@+id/tvCountryName"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
+        android:textColor="#9E9CA8"
+        android:textSize="13sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvCityName"
+        app:layout_constraintEnd_toStartOf="@+id/tvTimeOffset"
+        tools:text="Japan" />
+
+    <!-- Time offset badge (+9 hrs, -7 hrs) -->
+    <TextView
+        android:id="@+id/tvTimeOffset"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_badge_pill"
+        android:gravity="center"
+        android:textColor="#C7C4D7"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="+9 hrs" />
+
+    <!-- Time display container -->
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="14dp"
+        android:gravity="bottom"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvCountryName">
+
+        <TextView
+            android:id="@+id/tvCityTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#FFFFFF"
+            android:textSize="28sp"
+            android:textStyle="bold"
+            tools:text="04:15" />
+
+        <TextView
+            android:id="@+id/tvCityAmPm"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="6dp"
+            android:layout_marginBottom="2dp"
+            android:textColor="#A5A3B8"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            tools:text="PM" />
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

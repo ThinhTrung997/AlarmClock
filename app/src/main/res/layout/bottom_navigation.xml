@@ -29,12 +29,14 @@
             android:paddingBottom="4dp">
 
             <ImageView
+                android:id="@+id/ivTabAlarm"
                 android:layout_width="21dp"
                 android:layout_height="20dp"
                 android:src="@drawable/icon_alarm"
                 android:contentDescription="Alarm" />
 
             <TextView
+                android:id="@+id/tvTabAlarm"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
@@ -58,12 +60,14 @@
             android:paddingBottom="4dp">
 
             <ImageView
+                android:id="@+id/ivTabWorldClock"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
                 android:src="@drawable/icon_world_clock"
                 android:contentDescription="World Clock" />
 
             <TextView
+                android:id="@+id/tvTabWorldClock"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
@@ -87,12 +91,14 @@
             android:paddingBottom="4dp">
 
             <ImageView
+                android:id="@+id/ivTabStopwatch"
                 android:layout_width="18dp"
                 android:layout_height="21dp"
                 android:src="@drawable/icon_stopwatch"
                 android:contentDescription="Stopwatch" />
 
             <TextView
+                android:id="@+id/tvTabStopwatch"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"

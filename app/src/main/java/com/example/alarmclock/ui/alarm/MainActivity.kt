@@ -1,11 +1,10 @@
-package com.example.alarmclock
+package com.example.alarmclock.ui.alarm
 
 import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
-import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
@@ -13,8 +12,15 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.alarmclock.R
+import com.example.alarmclock.data.AlarmStorage
+import com.example.alarmclock.model.Alarm
+import com.example.alarmclock.ui.adapter.AlarmAdapter
+import com.example.alarmclock.util.AlarmScheduler
+import com.example.alarmclock.util.NavigationHelper
+import com.example.alarmclock.util.NavigationTab
 import com.google.android.material.floatingactionbutton.FloatingActionButton
-//thay
+
 class MainActivity : AppCompatActivity() {
 
     private lateinit var recyclerView: RecyclerView
@@ -42,17 +48,8 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        val tabWorldClock = findViewById<LinearLayout>(R.id.tabWorldClock)
 
-        val tabStopwatch = findViewById<LinearLayout>(R.id.tabStopwatch)
-
-        tabWorldClock.setOnClickListener {
-            startActivity(Intent(this, WorldClockActivity::class.java))
-        }
-
-        tabStopwatch.setOnClickListener {
-            startActivity(Intent(this, StopwatchActivity::class.java))
-        }
+        NavigationHelper.setupBottomNavigation(this, NavigationTab.ALARM)
         checkPermissions()
         initViews()
         loadAlarms()
@@ -60,6 +57,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
+        NavigationHelper.setupBottomNavigation(this, NavigationTab.ALARM)
         refreshAlarmList()
     }
 
@@ -90,7 +88,7 @@ class MainActivity : AppCompatActivity() {
                 }
                 alarmActivityResultLauncher.launch(intent)
             },
-            onAlarmToggle = { position, isEnabled, updatedAlarm ->
+            onAlarmToggle = { _, _, updatedAlarm ->
                 // Lưu vào SharedPreferences và cập nhật AlarmManager
                 AlarmStorage.updateAlarm(this, updatedAlarm)
                 AlarmScheduler.scheduleAlarm(this, updatedAlarm)
@@ -114,7 +112,6 @@ class MainActivity : AppCompatActivity() {
             alarmActivityResultLauncher.launch(intent)
         }
     }
-
 
     private fun loadAlarms() {
         val storedAlarms = AlarmStorage.getAlarms(this)
@@ -149,5 +146,4 @@ class MainActivity : AppCompatActivity() {
             .setNegativeButton("Hủy", null)
             .show()
     }
-
 }

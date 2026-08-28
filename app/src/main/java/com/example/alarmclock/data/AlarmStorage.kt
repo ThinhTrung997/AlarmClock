@@ -1,7 +1,8 @@
-package com.example.alarmclock
+package com.example.alarmclock.data
 
 import android.content.Context
 import android.content.SharedPreferences
+import com.example.alarmclock.model.Alarm
 import org.json.JSONArray
 
 object AlarmStorage {

@@ -19,10 +19,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AlarmClock">
-        <activity android:name=".StopwatchActivity" />
-        <activity android:name=".WorldClockActivity" />
+        <activity android:name=".ui.stopwatch.StopwatchActivity" />
+        <activity android:name=".ui.worldclock.WorldClockActivity" />
+        <activity android:name=".ui.worldclock.AddCityActivity" />
         <activity
-            android:name=".MainActivity"
+            android:name=".ui.alarm.MainActivity"
             android:exported="true"
             android:windowSoftInputMode="adjustResize">
             <intent-filter>
@@ -33,12 +34,12 @@
         </activity>
 
         <activity
-            android:name=".AddAlarmActivity"
+            android:name=".ui.alarm.AddAlarmActivity"
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
 
         <activity
-            android:name=".AlarmRingActivity"
+            android:name=".ui.alarm.AlarmRingActivity"
             android:exported="false"
             android:showWhenLocked="true"
             android:turnScreenOn="true"
@@ -49,11 +50,11 @@
             android:windowSoftInputMode="adjustResize" />
 
         <receiver
-            android:name=".AlarmReceiver"
+            android:name=".receiver.AlarmReceiver"
             android:exported="false" />
 
         <receiver
-            android:name=".BootReceiver"
+            android:name=".receiver.BootReceiver"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />

@@ -1,4 +1,4 @@
-package com.example.alarmclock
+package com.example.alarmclock.model
 
 import org.json.JSONArray
 import org.json.JSONObject

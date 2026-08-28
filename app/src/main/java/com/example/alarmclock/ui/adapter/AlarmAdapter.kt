@@ -1,4 +1,4 @@
-package com.example.alarmclock
+package com.example.alarmclock.ui.adapter
 
 import android.graphics.Color
 import android.view.LayoutInflater
@@ -7,6 +7,8 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.appcompat.widget.SwitchCompat
 import androidx.recyclerview.widget.RecyclerView
+import com.example.alarmclock.R
+import com.example.alarmclock.model.Alarm
 
 class AlarmAdapter(
     private val alarmList: MutableList<Alarm>,

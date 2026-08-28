@@ -1,4 +1,4 @@
-package com.example.alarmclock
+package com.example.alarmclock.ui.alarm
 
 import android.app.Activity
 import android.content.Intent
@@ -15,6 +15,10 @@ import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SwitchCompat
+import com.example.alarmclock.R
+import com.example.alarmclock.data.AlarmStorage
+import com.example.alarmclock.model.Alarm
+import com.example.alarmclock.util.AlarmScheduler
 import com.google.android.material.button.MaterialButton
 import java.util.Calendar
 
@@ -56,11 +60,11 @@ class AddAlarmActivity : AppCompatActivity() {
     ) { result ->
         if (result.resultCode == Activity.RESULT_OK) {
             val uri: Uri? = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                    result.data?.getParcelableExtra(RingtoneManager.EXTRA_RINGTONE_PICKED_URI, Uri::class.java)
-                } else {
-                    @Suppress("DEPRECATION")
-                    result.data?.getParcelableExtra(RingtoneManager.EXTRA_RINGTONE_PICKED_URI)
-                }
+                result.data?.getParcelableExtra(RingtoneManager.EXTRA_RINGTONE_PICKED_URI, Uri::class.java)
+            } else {
+                @Suppress("DEPRECATION")
+                result.data?.getParcelableExtra(RingtoneManager.EXTRA_RINGTONE_PICKED_URI)
+            }
             if (uri != null) {
                 selectedRingtoneUri = uri
                 selectedRingtoneName = RingtoneManager

@@ -1,4 +1,4 @@
-package com.example.alarmclock
+package com.example.alarmclock.receiver
 
 import android.app.NotificationChannel
 import android.app.NotificationManager
@@ -9,6 +9,9 @@ import android.content.Intent
 import android.os.Build
 import android.os.PowerManager
 import androidx.core.app.NotificationCompat
+import com.example.alarmclock.R
+import com.example.alarmclock.ui.alarm.AlarmRingActivity
+import com.example.alarmclock.util.AlarmScheduler
 
 class AlarmReceiver : BroadcastReceiver() {
 

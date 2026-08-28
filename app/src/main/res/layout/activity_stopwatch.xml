@@ -1,86 +1,160 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:background="@color/text_dark">
+
+    <!-- Top App Bar / Header -->
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/stopwatch_tren"
+        android:id="@+id/headerStopwatch"
         android:layout_width="match_parent"
         android:layout_height="64dp"
-        android:orientation="horizontal"
-        android:background="@color/text_dark"
         android:paddingStart="16dp"
         android:paddingEnd="16dp"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        tools:ignore="MissingConstraints">
+        app:layout_constraintEnd_toEndOf="parent">
+
         <ImageView
-            android:id="@+id/image_ho"
-            android:layout_width="18.96dp"
-            android:layout_height="22.3dp"
+            android:id="@+id/ivStopwatchHeaderIcon"
+            android:layout_width="22dp"
+            android:layout_height="22dp"
             android:src="@drawable/icon_stopwatch"
+            app:tint="#C0C1FF"
+            android:contentDescription="Stopwatch Icon"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"/>
+            app:layout_constraintBottom_toBottomOf="parent" />
+
         <TextView
-            android:layout_width="160dp"
-            android:layout_height="32dp"
-            android:orientation="vertical"
+            android:id="@+id/tvTitleStopwatch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
             android:text="Stopwatch"
-            android:paddingStart="16dp"
-            android:textStyle="bold"
-            android:textSize="24dp"
             android:textColor="#E5E2E1"
-            app:layout_constraintStart_toEndOf="@+id/image_ho"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
+            android:textSize="22sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toEndOf="@+id/ivStopwatchHeaderIcon"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="590dp"
-        android:layout_marginTop="4dp"
-        android:paddingStart="16dp"
-        android:paddingTop="32dp"
-        android:paddingEnd="16dp"
+    <!-- Main Digital Time Display -->
+    <LinearLayout
+        android:id="@+id/containerTimer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="36dp"
+        android:baselineAligned="true"
+        android:gravity="bottom"
+        android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/stopwatch_tren">
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="370dp"
-            android:layout_height="321dp"
-            android:paddingBottom="48dp"
-            android:paddingTop="48dp"
-            android:orientation="vertical">
+        app:layout_constraintTop_toBottomOf="@+id/headerStopwatch">
 
+        <!-- Main Time: Hours:Minutes:Seconds -->
+        <TextView
+            android:id="@+id/tvStopwatchMainTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-medium"
+            android:text="00:00:00"
+            android:textColor="#C0C1FF"
+            android:textSize="50sp"
+            android:textStyle="bold" />
 
-                    <TextView
-                        android:id="@+id/stopwatchTime"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="00:00:00"
-                        android:textColor="#B8B8FF"
-                        android:textSize="52sp"
-                        android:textStyle="bold"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+        <!-- Centiseconds / Milliseconds: .00 -->
+        <TextView
+            android:id="@+id/tvStopwatchMillis"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-medium"
+            android:text=".00"
+            android:textColor="#C0C1FF"
+            android:textSize="32sp"
+            android:textStyle="bold" />
 
-            <Button
-                android:id="@+id/btnStartStop"
-                android:layout_width="80dp"
-                android:layout_height="80dp"
-                android:text="Start"
-                tools:layout_editor_absoluteX="35dp"
-                tools:layout_editor_absoluteY="137dp" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
+    </LinearLayout>
+
+    <!-- Control Buttons Area -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/containerControls"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        app:layout_constraintTop_toBottomOf="@+id/containerTimer"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <!-- Left Button: Lap / Reset -->
+        <FrameLayout
+            android:id="@+id/btnLapReset"
+            android:layout_width="72dp"
+            android:layout_height="72dp"
+            android:background="@drawable/bg_circle_lap"
+            android:clickable="true"
+            android:focusable="true"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/btnStartPauseStop"
+            app:layout_constraintHorizontal_chainStyle="spread"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:id="@+id/tvLapReset"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="Lap"
+                android:textColor="#C7C4D7"
+                android:textSize="15sp"
+                android:textStyle="bold" />
+        </FrameLayout>
+
+        <!-- Right Button: Start / Pause / Stop -->
+        <FrameLayout
+            android:id="@+id/btnStartPauseStop"
+            android:layout_width="72dp"
+            android:layout_height="72dp"
+            android:background="@drawable/bg_circle_action"
+            android:clickable="true"
+            android:focusable="true"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/btnLapReset"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/ivStartPauseStop"
+                android:layout_width="28dp"
+                android:layout_height="28dp"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_play"
+                app:tint="#FFFFFF"
+                android:contentDescription="Action" />
+        </FrameLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
+    <!-- Lap Times List -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvLapTimes"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="28dp"
+        android:clipToPadding="false"
+        android:paddingBottom="12dp"
+        android:scrollbars="none"
+        app:layout_constraintTop_toBottomOf="@+id/containerControls"
+        app:layout_constraintBottom_toTopOf="@+id/bottomNavigation"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <!-- Bottom Navigation Included -->
     <include
         android:id="@+id/bottomNavigation"
         layout="@layout/bottom_navigation"
@@ -88,6 +162,6 @@
         android:layout_height="80dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        app:layout_constraintEnd_toEndOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
