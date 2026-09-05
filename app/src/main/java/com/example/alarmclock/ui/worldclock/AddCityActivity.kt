@@ -41,11 +41,11 @@ class AddCityActivity : AppCompatActivity() {
         addCityAdapter = AddCityAdapter(availableCities) { selectedCity ->
             val added = WorldClockStorage.addCity(this, selectedCity)
             if (added) {
-                Toast.makeText(this, "Đã thêm ${selectedCity.cityName} vào World Clock", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, getString(R.string.city_added, selectedCity.cityName), Toast.LENGTH_SHORT).show()
                 setResult(RESULT_OK)
                 finish()
             } else {
-                Toast.makeText(this, "${selectedCity.cityName} đã có trong danh sách", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, getString(R.string.city_already_exists, selectedCity.cityName), Toast.LENGTH_SHORT).show()
             }
         }
 

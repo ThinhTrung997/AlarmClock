@@ -128,8 +128,9 @@ class WorldClockActivity : AppCompatActivity() {
             tvLocalAmPm.text = ""
             tvLocalAmPm.visibility = android.view.View.GONE
         } else {
-            val amPmFormat = SimpleDateFormat("a", Locale.US)
-            tvLocalAmPm.text = amPmFormat.format(now).uppercase()
+            val cal = java.util.Calendar.getInstance()
+            val isAm = cal.get(java.util.Calendar.AM_PM) == java.util.Calendar.AM
+            tvLocalAmPm.text = if (isAm) getString(R.string.time_am) else getString(R.string.time_pm)
             tvLocalAmPm.visibility = android.view.View.VISIBLE
         }
     }
@@ -151,17 +152,17 @@ class WorldClockActivity : AppCompatActivity() {
 
     private fun showDeleteDialog(position: Int, city: WorldClockCity) {
         AlertDialog.Builder(this)
-            .setTitle("Xóa thành phố")
-            .setMessage("Bạn có muốn xóa ${city.cityName} khỏi danh sách đồng hồ thế giới?")
-            .setPositiveButton("Xóa") { _, _ ->
+            .setTitle(R.string.delete_city)
+            .setMessage(getString(R.string.delete_city_confirm, city.cityName))
+            .setPositiveButton(R.string.delete) { _, _ ->
                 WorldClockStorage.deleteCity(this, city.id)
                 if (position in 0 until cityList.size) {
                     cityList.removeAt(position)
                     worldClockAdapter.notifyItemRemoved(position)
                 }
-                Toast.makeText(this, "Đã xóa ${city.cityName}", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, getString(R.string.city_deleted, city.cityName), Toast.LENGTH_SHORT).show()
             }
-            .setNegativeButton("Hủy", null)
+            .setNegativeButton(R.string.cancel, null)
             .show()
     }
 }

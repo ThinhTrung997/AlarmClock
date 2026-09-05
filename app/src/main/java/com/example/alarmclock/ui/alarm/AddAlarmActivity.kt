@@ -42,7 +42,7 @@ class AddAlarmActivity : AppCompatActivity() {
     private var editAlarmId: Long = -1L
     private var editPosition: Int = -1
     private var isAm = true
-    private val selectedDays = mutableSetOf(0, 1, 2, 3, 4)
+    private val selectedDays = mutableSetOf(0, 1, 2, 3, 4, 5, 6)
     private val dayButtons = mutableListOf<TextView>()
 
     // Date selection: null = everyday (no specific date)
@@ -50,7 +50,7 @@ class AddAlarmActivity : AppCompatActivity() {
 
     // Ringtone: null means "use device default"
     private var selectedRingtoneUri: Uri? = null
-    private var selectedRingtoneName: String = "Default Alarm"
+    private var selectedRingtoneName: String = ""
 
     private lateinit var npHour: NumberPicker
     private lateinit var npMinute: NumberPicker
@@ -80,7 +80,7 @@ class AddAlarmActivity : AppCompatActivity() {
                     ?.getTitle(this) ?: uri.lastPathSegment ?: "Custom"
             } else {
                 selectedRingtoneUri = null
-                selectedRingtoneName = "Default Alarm"
+                selectedRingtoneName = getString(R.string.default_alarm)
             }
             tvSoundName.text = selectedRingtoneName
         }
@@ -89,6 +89,8 @@ class AddAlarmActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.add_alarm)
+
+        selectedRingtoneName = getString(R.string.default_alarm)
 
         initViews()
         setupNumberPickers()
@@ -111,6 +113,9 @@ class AddAlarmActivity : AppCompatActivity() {
         switchVibration = findViewById(R.id.switchVibration)
         tvSoundName = findViewById(R.id.tvSoundName)
         tvSelectedDate = findViewById(R.id.tvSelectedDate)
+
+        btnAm.text = getString(R.string.time_am)
+        btnPm.text = getString(R.string.time_pm)
     }
 
     private fun setupNumberPickers() {
@@ -134,11 +139,11 @@ class AddAlarmActivity : AppCompatActivity() {
         val tvHeaderTitle = findViewById<TextView>(R.id.tvHeaderTitle)
 
         if (editAlarmId != -1L || editPosition >= 0) {
-            tvHeaderTitle.text = "Edit Alarm"
+            tvHeaderTitle.text = getString(R.string.edit_alarm)
             val title = intent.getStringExtra(EXTRA_TITLE) ?: ""
             val time = intent.getStringExtra(EXTRA_TIME) ?: "06:30"
             val amPm = intent.getStringExtra(EXTRA_AM_PM) ?: "AM"
-            val repeat = intent.getStringExtra(EXTRA_REPEAT) ?: "Everyday"
+            val repeat = intent.getStringExtra(EXTRA_REPEAT) ?: getString(R.string.repeat_everyday)
             val isVibrate = intent.getBooleanExtra(EXTRA_IS_VIBRATE, true)
 
             if (editAlarmId != -1L) {
@@ -149,16 +154,19 @@ class AddAlarmActivity : AppCompatActivity() {
                         .getRingtone(this, selectedRingtoneUri)
                         ?.getTitle(this) ?: "Custom"
                 }
+                if (stored?.dateMillis != null && stored.dateMillis > 0) {
+                    selectedDateCalendar = Calendar.getInstance().apply { timeInMillis = stored.dateMillis }
+                }
             }
 
             etLabel.setText(title)
-            isAm = amPm.equals("AM", ignoreCase = true)
+            isAm = amPm.equals("AM", ignoreCase = true) || amPm.equals("SA", ignoreCase = true)
             switchVibration.isChecked = isVibrate
 
             parseTime(time)
             parseRepeat(repeat)
         } else {
-            tvHeaderTitle.text = "Add Alarm"
+            tvHeaderTitle.text = getString(R.string.add_alarm)
             val now = Calendar.getInstance()
             val hour24 = now.get(Calendar.HOUR_OF_DAY)
             val minute = now.get(Calendar.MINUTE)
@@ -171,6 +179,7 @@ class AddAlarmActivity : AppCompatActivity() {
         }
 
         tvSoundName.text = selectedRingtoneName
+        updateDateDisplay()
     }
 
     private fun parseTime(timeStr: String) {
@@ -187,25 +196,19 @@ class AddAlarmActivity : AppCompatActivity() {
     private fun parseRepeat(repeatStr: String) {
         selectedDays.clear()
         when {
-            repeatStr.equals("Everyday", ignoreCase = true) -> selectedDays.addAll(0..6)
-            repeatStr.equals("Weekends", ignoreCase = true) -> selectedDays.addAll(listOf(5, 6))
-            repeatStr.equals("Never", ignoreCase = true) -> { /* empty */ }
-            repeatStr.contains("Mon", ignoreCase = true) ||
-            repeatStr.contains("Tue", ignoreCase = true) ||
-            repeatStr.contains("Wed", ignoreCase = true) ||
-            repeatStr.contains("Thu", ignoreCase = true) ||
-            repeatStr.contains("Fri", ignoreCase = true) ||
-            repeatStr.contains("Sat", ignoreCase = true) ||
-            repeatStr.contains("Sun", ignoreCase = true) -> {
-                if (repeatStr.contains("Mon")) selectedDays.add(0)
-                if (repeatStr.contains("Tue")) selectedDays.add(1)
-                if (repeatStr.contains("Wed")) selectedDays.add(2)
-                if (repeatStr.contains("Thu")) selectedDays.add(3)
-                if (repeatStr.contains("Fri")) selectedDays.add(4)
-                if (repeatStr.contains("Sat")) selectedDays.add(5)
-                if (repeatStr.contains("Sun")) selectedDays.add(6)
+            repeatStr.equals("Everyday", ignoreCase = true) || repeatStr.equals("Hàng ngày", ignoreCase = true) -> selectedDays.addAll(0..6)
+            repeatStr.equals("Weekends", ignoreCase = true) || repeatStr.equals("Cuối tuần", ignoreCase = true) -> selectedDays.addAll(listOf(5, 6))
+            repeatStr.equals("Never", ignoreCase = true) || repeatStr.equals("Không bao giờ", ignoreCase = true) -> { /* empty */ }
+            else -> {
+                if (repeatStr.contains("Mon") || repeatStr.contains("T2")) selectedDays.add(0)
+                if (repeatStr.contains("Tue") || repeatStr.contains("T3")) selectedDays.add(1)
+                if (repeatStr.contains("Wed") || repeatStr.contains("T4")) selectedDays.add(2)
+                if (repeatStr.contains("Thu") || repeatStr.contains("T5")) selectedDays.add(3)
+                if (repeatStr.contains("Fri") || repeatStr.contains("T6")) selectedDays.add(4)
+                if (repeatStr.contains("Sat") || repeatStr.contains("T7")) selectedDays.add(5)
+                if (repeatStr.contains("Sun") || repeatStr.contains("CN")) selectedDays.add(6)
+                if (selectedDays.isEmpty()) selectedDays.addAll(0..6)
             }
-            else -> selectedDays.addAll(listOf(0, 1, 2, 3, 4))
         }
     }
 
@@ -214,6 +217,8 @@ class AddAlarmActivity : AppCompatActivity() {
     }
 
     private fun setupAmPmToggle() {
+        btnAm.text = getString(R.string.time_am)
+        btnPm.text = getString(R.string.time_pm)
         updateAmPmUi()
         btnAm.setOnClickListener { isAm = true; updateAmPmUi() }
         btnPm.setOnClickListener { isAm = false; updateAmPmUi() }
@@ -278,15 +283,21 @@ class AddAlarmActivity : AppCompatActivity() {
     }
 
     private fun updateRepeatSummary() {
+        val dayNames = listOf(
+            getString(R.string.day_mon),
+            getString(R.string.day_tue),
+            getString(R.string.day_wed),
+            getString(R.string.day_thu),
+            getString(R.string.day_fri),
+            getString(R.string.day_sat),
+            getString(R.string.day_sun)
+        )
         tvRepeatSummary.text = when {
-            selectedDays.size == 7 -> "Everyday"
-            selectedDays.size == 5 && selectedDays.containsAll(listOf(0, 1, 2, 3, 4)) -> "Mon, Tue, Wed, Thu, Fri"
-            selectedDays.size == 2 && selectedDays.containsAll(listOf(5, 6)) -> "Weekends"
-            selectedDays.isEmpty() -> "Never"
-            else -> {
-                val names = listOf("Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun")
-                selectedDays.sorted().joinToString(", ") { names[it] }
-            }
+            selectedDays.size == 7 -> getString(R.string.repeat_everyday)
+            selectedDays.size == 5 && selectedDays.containsAll(listOf(0, 1, 2, 3, 4)) -> dayNames.subList(0, 5).joinToString(", ")
+            selectedDays.size == 2 && selectedDays.containsAll(listOf(5, 6)) -> getString(R.string.repeat_weekends)
+            selectedDays.isEmpty() -> getString(R.string.repeat_never)
+            else -> selectedDays.sorted().joinToString(", ") { dayNames[it] }
         }
     }
 
@@ -317,7 +328,7 @@ class AddAlarmActivity : AppCompatActivity() {
         }, year, month, day)
 
         // Option to clear date (go back to everyday)
-        dialog.setButton(DatePickerDialog.BUTTON_NEUTRAL, "Clear Date") { _, _ ->
+        dialog.setButton(DatePickerDialog.BUTTON_NEUTRAL, getString(R.string.clear_date)) { _, _ ->
             selectedDateCalendar = null
             updateDateDisplay()
         }
@@ -328,9 +339,9 @@ class AddAlarmActivity : AppCompatActivity() {
 
     private fun updateDateDisplay() {
         if (selectedDateCalendar == null) {
-            tvSelectedDate.text = "Everyday (No specific date)"
+            tvSelectedDate.text = getString(R.string.everyday_no_date)
         } else {
-            val fmt = SimpleDateFormat("EEE, MMM dd yyyy", Locale.getDefault())
+            val fmt = SimpleDateFormat("EEE, dd/MM/yyyy", Locale.getDefault())
             tvSelectedDate.text = fmt.format(selectedDateCalendar!!.time)
         }
     }
@@ -345,7 +356,7 @@ class AddAlarmActivity : AppCompatActivity() {
     private fun openRingtonePicker() {
         val intent = Intent(RingtoneManager.ACTION_RINGTONE_PICKER).apply {
             putExtra(RingtoneManager.EXTRA_RINGTONE_TYPE, RingtoneManager.TYPE_ALARM)
-            putExtra(RingtoneManager.EXTRA_RINGTONE_TITLE, "Chọn nhạc báo thức")
+            putExtra(RingtoneManager.EXTRA_RINGTONE_TITLE, getString(R.string.select_alarm_sound))
             putExtra(RingtoneManager.EXTRA_RINGTONE_SHOW_SILENT, false)
             putExtra(RingtoneManager.EXTRA_RINGTONE_SHOW_DEFAULT, true)
             putExtra(RingtoneManager.EXTRA_RINGTONE_EXISTING_URI, selectedRingtoneUri)
@@ -357,11 +368,12 @@ class AddAlarmActivity : AppCompatActivity() {
 
     private fun setupSaveActions() {
         val saveListener = {
-            val label = etLabel.text.toString().trim().ifBlank { "Alarm" }
+            val label = etLabel.text.toString().trim().ifBlank { getString(R.string.tab_alarm) }
             val hour = npHour.value
             val minute = npMinute.value
             val time = String.format("%02d:%02d", hour, minute)
             val amPm = if (isAm) "AM" else "PM"
+            val displayAmPm = if (isAm) getString(R.string.time_am) else getString(R.string.time_pm)
             val repeat = tvRepeatSummary.text.toString()
             val isVibrate = switchVibration.isChecked
 
@@ -374,7 +386,7 @@ class AddAlarmActivity : AppCompatActivity() {
             )
 
             if (isDuplicate) {
-                Toast.makeText(this, "Đã có báo thức vào lúc $time $amPm!", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, getString(R.string.duplicate_alarm_time, time, displayAmPm), Toast.LENGTH_SHORT).show()
             } else {
                 val targetId = if (editAlarmId != -1L) editAlarmId else System.currentTimeMillis()
                 val alarm = Alarm(
@@ -388,7 +400,8 @@ class AddAlarmActivity : AppCompatActivity() {
                     repeatDays = selectedDays.sorted(),
                     isEnabled = true,
                     isVibrate = isVibrate,
-                    ringtoneUri = selectedRingtoneUri?.toString()
+                    ringtoneUri = selectedRingtoneUri?.toString(),
+                    dateMillis = selectedDateCalendar?.timeInMillis
                 )
 
                 if (editAlarmId != -1L || editPosition >= 0) {

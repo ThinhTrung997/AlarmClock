@@ -1,13 +1,21 @@
 package com.example.alarmclock.ui.stopwatch
 
+import android.content.BroadcastReceiver
+import android.content.ComponentName
+import android.content.Context
+import android.content.Intent
+import android.content.IntentFilter
+import android.content.ServiceConnection
+import android.os.Build
 import android.os.Bundle
 import android.os.Handler
+import android.os.IBinder
 import android.os.Looper
-import android.os.SystemClock
 import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.alarmclock.R
@@ -18,12 +26,6 @@ import com.example.alarmclock.util.NavigationTab
 import java.util.Locale
 
 class StopwatchActivity : AppCompatActivity() {
-
-    private enum class StopwatchState {
-        STOPPED,
-        RUNNING,
-        PAUSED
-    }
 
     private lateinit var tvMainTime: TextView
     private lateinit var tvMillis: TextView
@@ -36,18 +38,38 @@ class StopwatchActivity : AppCompatActivity() {
 
     private val lapList = mutableListOf<StopwatchLap>()
 
-    private var currentState = StopwatchState.STOPPED
-    private var startTime = 0L
-    private var elapsedTime = 0L
-    private var lastLapTotalElapsed = 0L
+    private var stopwatchService: StopwatchService? = null
+    private var isBound = false
 
     private val handler = Handler(Looper.getMainLooper())
     private val timerRunnable = object : Runnable {
         override fun run() {
-            if (currentState == StopwatchState.RUNNING) {
-                val currentElapsed = SystemClock.elapsedRealtime() - startTime
-                updateTimeDisplay(currentElapsed)
+            val service = stopwatchService
+            if (service != null && service.currentState == StopwatchService.StopwatchState.RUNNING) {
+                updateTimeDisplay(service.getCurrentElapsed())
                 handler.postDelayed(this, 30) // ~30fps for smooth centiseconds
+            }
+        }
+    }
+
+    private val serviceConnection = object : ServiceConnection {
+        override fun onServiceConnected(name: ComponentName?, binder: IBinder?) {
+            val localBinder = binder as StopwatchService.LocalBinder
+            stopwatchService = localBinder.getService()
+            isBound = true
+            syncWithService()
+        }
+
+        override fun onServiceDisconnected(name: ComponentName?) {
+            stopwatchService = null
+            isBound = false
+        }
+    }
+
+    private val stateReceiver = object : BroadcastReceiver() {
+        override fun onReceive(context: Context?, intent: Intent?) {
+            if (intent?.action == StopwatchService.ACTION_STATE_CHANGED) {
+                syncWithService()
             }
         }
     }
@@ -58,12 +80,37 @@ class StopwatchActivity : AppCompatActivity() {
 
         NavigationHelper.setupBottomNavigation(this, NavigationTab.STOPWATCH)
         initViews()
-        updateUIState()
+    }
+
+    override fun onStart() {
+        super.onStart()
+        val intent = Intent(this, StopwatchService::class.java)
+        bindService(intent, serviceConnection, Context.BIND_AUTO_CREATE)
+
+        val filter = IntentFilter(StopwatchService.ACTION_STATE_CHANGED)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            registerReceiver(stateReceiver, filter, Context.RECEIVER_NOT_EXPORTED)
+        } else {
+            registerReceiver(stateReceiver, filter)
+        }
+    }
+
+    override fun onStop() {
+        super.onStop()
+        if (isBound) {
+            unbindService(serviceConnection)
+            isBound = false
+        }
+        try {
+            unregisterReceiver(stateReceiver)
+        } catch (_: Exception) {}
+        handler.removeCallbacks(timerRunnable)
     }
 
     override fun onResume() {
         super.onResume()
         NavigationHelper.setupBottomNavigation(this, NavigationTab.STOPWATCH)
+        syncWithService()
     }
 
     private fun initViews() {
@@ -80,72 +127,79 @@ class StopwatchActivity : AppCompatActivity() {
         rvLapTimes.adapter = lapAdapter
 
         btnStartPauseStop.setOnClickListener {
-            when (currentState) {
-                StopwatchState.STOPPED -> startTimer()
-                StopwatchState.RUNNING -> pauseTimer()
-                StopwatchState.PAUSED -> resumeTimer()
+            val service = stopwatchService ?: return@setOnClickListener
+            when (service.currentState) {
+                StopwatchService.StopwatchState.STOPPED -> startTimer()
+                StopwatchService.StopwatchState.RUNNING -> pauseTimer()
+                StopwatchService.StopwatchState.PAUSED -> resumeTimer()
             }
         }
 
         btnLapReset.setOnClickListener {
-            when (currentState) {
-                StopwatchState.RUNNING -> recordLap()
-                StopwatchState.PAUSED -> resetTimer()
-                StopwatchState.STOPPED -> { /* No-op */ }
+            val service = stopwatchService ?: return@setOnClickListener
+            when (service.currentState) {
+                StopwatchService.StopwatchState.RUNNING -> recordLap()
+                StopwatchService.StopwatchState.PAUSED -> resetTimer()
+                StopwatchService.StopwatchState.STOPPED -> { /* No-op */ }
             }
         }
     }
 
+    private fun syncWithService() {
+        val service = stopwatchService ?: return
+        lapList.clear()
+        lapList.addAll(service.lapList)
+        lapAdapter.notifyDataSetChanged()
+
+        updateTimeDisplay(service.getCurrentElapsed())
+        updateUIState(service.currentState)
+
+        handler.removeCallbacks(timerRunnable)
+        if (service.currentState == StopwatchService.StopwatchState.RUNNING) {
+            handler.post(timerRunnable)
+        }
+    }
+
     private fun startTimer() {
-        startTime = SystemClock.elapsedRealtime()
-        currentState = StopwatchState.RUNNING
-        lastLapTotalElapsed = 0L
+        val intent = Intent(this, StopwatchService::class.java).apply {
+            action = StopwatchService.ACTION_START
+        }
+        ContextCompat.startForegroundService(this, intent)
         handler.post(timerRunnable)
-        updateUIState()
     }
 
     private fun pauseTimer() {
-        elapsedTime = SystemClock.elapsedRealtime() - startTime
-        currentState = StopwatchState.PAUSED
+        val intent = Intent(this, StopwatchService::class.java).apply {
+            action = StopwatchService.ACTION_PAUSE
+        }
+        startService(intent)
         handler.removeCallbacks(timerRunnable)
-        updateTimeDisplay(elapsedTime)
-        updateUIState()
     }
 
     private fun resumeTimer() {
-        startTime = SystemClock.elapsedRealtime() - elapsedTime
-        currentState = StopwatchState.RUNNING
+        val intent = Intent(this, StopwatchService::class.java).apply {
+            action = StopwatchService.ACTION_RESUME
+        }
+        startService(intent)
         handler.post(timerRunnable)
-        updateUIState()
     }
 
     private fun resetTimer() {
         handler.removeCallbacks(timerRunnable)
-        currentState = StopwatchState.STOPPED
-        elapsedTime = 0L
-        startTime = 0L
-        lastLapTotalElapsed = 0L
-        updateTimeDisplay(0L)
-        lapList.clear()
-        lapAdapter.notifyDataSetChanged()
-        updateUIState()
+        val intent = Intent(this, StopwatchService::class.java).apply {
+            action = StopwatchService.ACTION_STOP
+        }
+        startService(intent)
     }
 
     private fun recordLap() {
-        val currentElapsed = SystemClock.elapsedRealtime() - startTime
-        val lapTime = currentElapsed - lastLapTotalElapsed
-        lastLapTotalElapsed = currentElapsed
-
-        val nextLapNumber = lapList.size + 1
-        val lap = StopwatchLap(
-            lapNumber = nextLapNumber,
-            lapTimeMillis = lapTime,
-            totalTimeMillis = currentElapsed
-        )
-        // Add to top of list as shown in mockups
-        lapList.add(0, lap)
-        lapAdapter.notifyItemInserted(0)
-        rvLapTimes.scrollToPosition(0)
+        val service = stopwatchService ?: return
+        val lap = service.recordLap()
+        if (lap != null) {
+            lapList.add(0, lap)
+            lapAdapter.notifyItemInserted(0)
+            rvLapTimes.scrollToPosition(0)
+        }
     }
 
     private fun updateTimeDisplay(millis: Long) {
@@ -158,31 +212,27 @@ class StopwatchActivity : AppCompatActivity() {
         tvMillis.text = String.format(Locale.US, ".%02d", centiseconds)
     }
 
-    private fun updateUIState() {
-        when (currentState) {
-            StopwatchState.STOPPED -> {
+    private fun updateUIState(state: StopwatchService.StopwatchState) {
+        when (state) {
+            StopwatchService.StopwatchState.STOPPED -> {
                 ivStartPauseStop.setImageResource(R.drawable.ic_play)
                 btnLapReset.alpha = 0.4f
                 btnLapReset.isEnabled = false
-                tvLapReset.text = "Lap"
+                tvLapReset.text = getString(R.string.lap)
             }
-            StopwatchState.RUNNING -> {
+            StopwatchService.StopwatchState.RUNNING -> {
                 ivStartPauseStop.setImageResource(R.drawable.ic_stop)
                 btnLapReset.alpha = 1.0f
                 btnLapReset.isEnabled = true
-                tvLapReset.text = "Lap"
+                tvLapReset.text = getString(R.string.lap)
             }
-            StopwatchState.PAUSED -> {
+            StopwatchService.StopwatchState.PAUSED -> {
                 ivStartPauseStop.setImageResource(R.drawable.ic_play)
                 btnLapReset.alpha = 1.0f
                 btnLapReset.isEnabled = true
-                tvLapReset.text = "Reset"
+                tvLapReset.text = getString(R.string.reset)
             }
         }
     }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        handler.removeCallbacks(timerRunnable)
-    }
 }
+

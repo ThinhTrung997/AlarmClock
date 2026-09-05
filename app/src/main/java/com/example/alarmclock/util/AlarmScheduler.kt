@@ -48,24 +48,22 @@ object AlarmScheduler {
                 PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
             )
 
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-                if (alarmManager.canScheduleExactAlarms()) {
-                    alarmManager.setAlarmClock(
-                        AlarmManager.AlarmClockInfo(triggerTime, showPendingIntent),
-                        pendingIntent
-                    )
-                } else {
-                    alarmManager.setAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, triggerTime, pendingIntent)
-                }
-            } else {
+            try {
                 alarmManager.setAlarmClock(
                     AlarmManager.AlarmClockInfo(triggerTime, showPendingIntent),
                     pendingIntent
                 )
+            } catch (se: SecurityException) {
+                Log.w(TAG, "setAlarmClock SecurityException, falling back: ${se.message}")
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, triggerTime, pendingIntent)
+                } else {
+                    alarmManager.set(AlarmManager.RTC_WAKEUP, triggerTime, pendingIntent)
+                }
             }
             Log.d(TAG, "Scheduled alarm ID: ${alarm.id} at millis: $triggerTime")
-        } catch (e: SecurityException) {
-            Log.e(TAG, "Cannot schedule exact alarm: ${e.message}")
+        } catch (e: Exception) {
+            Log.e(TAG, "Error scheduling alarm: ${e.message}")
         }
     }
 
@@ -161,23 +159,33 @@ object AlarmScheduler {
     }
 
     private fun calculateNextTriggerTime(alarm: Alarm): Long {
+        val isPm = alarm.amPm.equals("PM", ignoreCase = true) ||
+                   alarm.amPm.equals("CH", ignoreCase = true) ||
+                   alarm.amPm.contains("Chiều", ignoreCase = true) ||
+                   alarm.amPm.contains("Tối", ignoreCase = true)
+
         var hour24 = if (alarm.hour == 12) 0 else alarm.hour
-        if (alarm.amPm.equals("PM", ignoreCase = true)) {
+        if (isPm) {
             hour24 += 12
         }
 
         val now = Calendar.getInstance()
 
-        val dayMapping = mapOf(
-            0 to Calendar.MONDAY,
-            1 to Calendar.TUESDAY,
-            2 to Calendar.WEDNESDAY,
-            3 to Calendar.THURSDAY,
-            4 to Calendar.FRIDAY,
-            5 to Calendar.SATURDAY,
-            6 to Calendar.SUNDAY
-        )
+        // 1. Specific date selected
+        if (alarm.dateMillis != null && alarm.dateMillis > 0) {
+            val target = Calendar.getInstance().apply {
+                timeInMillis = alarm.dateMillis
+                set(Calendar.HOUR_OF_DAY, hour24)
+                set(Calendar.MINUTE, alarm.minute)
+                set(Calendar.SECOND, 0)
+                set(Calendar.MILLISECOND, 0)
+            }
+            if (target.timeInMillis > now.timeInMillis) {
+                return target.timeInMillis
+            }
+        }
 
+        // 2. No repeat days (one-time alarm for next occurrence: today if future, else tomorrow)
         if (alarm.repeatDays.isEmpty()) {
             val target = Calendar.getInstance().apply {
                 set(Calendar.HOUR_OF_DAY, hour24)
@@ -190,6 +198,17 @@ object AlarmScheduler {
             }
             return target.timeInMillis
         }
+
+        // 3. Repeat days
+        val dayMapping = mapOf(
+            0 to Calendar.MONDAY,
+            1 to Calendar.TUESDAY,
+            2 to Calendar.WEDNESDAY,
+            3 to Calendar.THURSDAY,
+            4 to Calendar.FRIDAY,
+            5 to Calendar.SATURDAY,
+            6 to Calendar.SUNDAY
+        )
 
         var closestTargetTime = 0L
         for (dayIndex in alarm.repeatDays) {

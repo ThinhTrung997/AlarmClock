@@ -33,11 +33,16 @@ class AlarmAdapter(
 
     override fun onBindViewHolder(holder: AlarmViewHolder, position: Int) {
         val alarm = alarmList[position]
+        val context = holder.itemView.context
 
-        holder.tvTitle.text = alarm.title
+        holder.tvTitle.text = if (alarm.title.isBlank() || alarm.title.equals("Alarm", true)) {
+            context.getString(R.string.tab_alarm)
+        } else {
+            alarm.title
+        }
         holder.tvTime.text = alarm.time
-        holder.tvAmPm.text = alarm.amPm
-        holder.tvRepeat.text = alarm.repeat
+        holder.tvAmPm.text = alarm.getFormattedAmPm(context)
+        holder.tvRepeat.text = alarm.getFormattedRepeat(context)
 
         updateCardAppearance(holder, alarm.isEnabled)
 

@@ -35,7 +35,7 @@ class MainActivity : AppCompatActivity() {
         ActivityResultContracts.RequestPermission()
     ) { isGranted: Boolean ->
         if (!isGranted) {
-            Toast.makeText(this, "Vui lòng cấp quyền thông báo để chuông báo thức hoạt động tốt", Toast.LENGTH_LONG).show()
+            Toast.makeText(this, getString(R.string.notification_permission_rationale), Toast.LENGTH_LONG).show()
         }
     }
 
@@ -69,6 +69,17 @@ class MainActivity : AppCompatActivity() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             if (ContextCompat.checkSelfPermission(this, Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
                 requestPermissionLauncher.launch(Manifest.permission.POST_NOTIFICATIONS)
+            }
+        }
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+            val alarmManager = getSystemService(android.app.AlarmManager::class.java)
+            if (alarmManager != null && !alarmManager.canScheduleExactAlarms()) {
+                try {
+                    val intent = Intent(android.provider.Settings.ACTION_REQUEST_SCHEDULE_EXACT_ALARM).apply {
+                        data = android.net.Uri.parse("package:$packageName")
+                    }
+                    startActivity(intent)
+                } catch (_: Exception) {}
             }
         }
     }
@@ -141,19 +152,24 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun showDeleteAlarmDialog(position: Int, alarm: Alarm) {
+        val displayTitle = if (alarm.title.isBlank() || alarm.title.equals("Alarm", true)) {
+            getString(R.string.tab_alarm)
+        } else {
+            alarm.title
+        }
         AlertDialog.Builder(this)
-            .setTitle("Xóa báo thức")
-            .setMessage("Bạn có chắc chắn muốn xóa báo thức \"${alarm.title}\" (${alarm.time} ${alarm.amPm}) không?")
-            .setPositiveButton("Xóa") { _, _ ->
+            .setTitle(R.string.delete_alarm)
+            .setMessage(getString(R.string.delete_confirm, displayTitle, alarm.time, alarm.getFormattedAmPm(this)))
+            .setPositiveButton(R.string.delete) { _, _ ->
                 AlarmStorage.deleteAlarm(this, alarm.id)
                 AlarmScheduler.cancelAlarm(this, alarm.id)
                 if (position in 0 until alarmList.size) {
                     alarmList.removeAt(position)
                     alarmAdapter.notifyItemRemoved(position)
                 }
-                Toast.makeText(this, "Đã xóa báo thức", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, getString(R.string.alarm_deleted), Toast.LENGTH_SHORT).show()
             }
-            .setNegativeButton("Hủy", null)
+            .setNegativeButton(R.string.cancel, null)
             .show()
     }
 }

@@ -19,18 +19,20 @@
         android:layout_marginTop="-80dp"/>
 
     <!-- Decorative circle glow (bottom) -->
+
+    <!-- Center content group -->
+
     <View
         android:id="@+id/glowCircleBottom"
         android:layout_width="200dp"
         android:layout_height="200dp"
+        android:layout_marginStart="-60dp"
+        android:layout_marginBottom="-60dp"
         android:alpha="0.06"
         android:background="@drawable/bg_glow_circle"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_marginStart="-60dp"
-        android:layout_marginBottom="-60dp"/>
+        app:layout_constraintStart_toStartOf="parent" />
 
-    <!-- Center content group -->
     <LinearLayout
         android:id="@+id/centerGroup"
         android:layout_width="wrap_content"
@@ -128,17 +130,6 @@
 
     </LinearLayout>
 
-    <!-- Version text -->
-    <TextView
-        android:id="@+id/tvVersion"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="v1.0"
-        android:textColor="#55AABFFF"
-        android:textSize="12sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginBottom="24dp"
-        android:layout_marginEnd="20dp" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

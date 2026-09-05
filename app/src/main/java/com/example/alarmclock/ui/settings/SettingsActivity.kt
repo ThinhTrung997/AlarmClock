@@ -80,7 +80,7 @@ class SettingsActivity : AppCompatActivity() {
 
         switchGradualVolume.setOnCheckedChangeListener { _, isChecked ->
             SettingsStorage.setGradualVolumeEnabled(this, isChecked)
-            val msg = if (isChecked) "Gradual Volume Increase enabled" else "Gradual Volume Increase disabled"
+            val msg = if (isChecked) getString(R.string.gradual_volume_enabled) else getString(R.string.gradual_volume_disabled)
             Toast.makeText(this, msg, Toast.LENGTH_SHORT).show()
         }
 

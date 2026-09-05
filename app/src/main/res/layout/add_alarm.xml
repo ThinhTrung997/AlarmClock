@@ -25,7 +25,7 @@
             android:padding="2dp"
             android:src="@drawable/ic_close"
             android:background="?attr/selectableItemBackgroundBorderless"
-            android:contentDescription="Close"
+            android:contentDescription="@string/close"
             app:tint="@color/text_primary"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -35,7 +35,7 @@
             android:id="@+id/tvHeaderTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Add Alarm"
+            android:text="@string/add_alarm"
             android:textColor="@color/text_primary"
             android:textSize="18sp"
             android:textStyle="bold"
@@ -48,7 +48,7 @@
             android:id="@+id/btnHeaderSave"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Save"
+            android:text="@string/save"
             android:textColor="@color/accent_blue"
             android:textSize="15sp"
             android:textStyle="bold"
@@ -149,7 +149,7 @@
                         android:layout_weight="1"
                         android:background="@drawable/bg_ampm_selected"
                         android:gravity="center"
-                        android:text="AM"
+                        android:text="@string/time_am"
                         android:textColor="@color/colorOnPrimary"
                         android:textSize="14sp"
                         android:textStyle="bold" />
@@ -160,7 +160,7 @@
                         android:layout_height="0dp"
                         android:layout_weight="1"
                         android:gravity="center"
-                        android:text="PM"
+                        android:text="@string/time_pm"
                         android:textColor="@color/text_secondary"
                         android:textSize="14sp"
                         android:textStyle="bold" />
@@ -203,7 +203,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Date"
+                        android:text="@string/date_label"
                         android:textColor="@color/text_primary"
                         android:textSize="15sp"
                         android:textStyle="bold" />
@@ -213,7 +213,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="2dp"
-                        android:text="Everyday (No specific date)"
+                        android:text="@string/everyday_no_date"
                         android:textColor="@color/text_secondary"
                         android:textSize="12sp" />
                 </LinearLayout>
@@ -242,7 +242,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Label"
+                    android:text="@string/alarm_label_title"
                     android:textColor="@color/text_secondary"
                     android:textSize="12sp" />
 
@@ -252,8 +252,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"
                     android:background="@null"
-                    android:hint="Alarm Label"
-                    android:text="Morning Workout"
+                    android:hint="@string/alarm_label_hint"
                     android:textColor="@color/text_primary"
                     android:textColorHint="@color/text_disabled"
                     android:textSize="15sp"
@@ -276,7 +275,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Repeat"
+                        android:text="@string/repeat_title"
                         android:textColor="@color/text_primary"
                         android:textSize="15sp"
                         android:textStyle="bold"
@@ -288,7 +287,7 @@
                         android:id="@+id/tvRepeatSummary"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Everyday"
+                        android:text="@string/repeat_everyday"
                         android:textColor="@color/text_secondary"
                         android:textSize="13sp"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -310,7 +309,7 @@
                         android:layout_height="38dp"
                         android:background="@drawable/bg_day_selected"
                         android:gravity="center"
-                        android:text="M"
+                        android:text="@string/day_mon_letter"
                         android:textColor="@color/colorOnPrimary"
                         android:textSize="13sp"
                         android:textStyle="bold" />
@@ -322,7 +321,7 @@
                         android:layout_marginStart="8dp"
                         android:background="@drawable/bg_day_selected"
                         android:gravity="center"
-                        android:text="T"
+                        android:text="@string/day_tue_letter"
                         android:textColor="@color/colorOnPrimary"
                         android:textSize="13sp"
                         android:textStyle="bold" />
@@ -334,7 +333,7 @@
                         android:layout_marginStart="8dp"
                         android:background="@drawable/bg_day_selected"
                         android:gravity="center"
-                        android:text="W"
+                        android:text="@string/day_wed_letter"
                         android:textColor="@color/colorOnPrimary"
                         android:textSize="13sp"
                         android:textStyle="bold" />
@@ -346,7 +345,7 @@
                         android:layout_marginStart="8dp"
                         android:background="@drawable/bg_day_selected"
                         android:gravity="center"
-                        android:text="T"
+                        android:text="@string/day_thu_letter"
                         android:textColor="@color/colorOnPrimary"
                         android:textSize="13sp"
                         android:textStyle="bold" />
@@ -358,7 +357,7 @@
                         android:layout_marginStart="8dp"
                         android:background="@drawable/bg_day_selected"
                         android:gravity="center"
-                        android:text="F"
+                        android:text="@string/day_fri_letter"
                         android:textColor="@color/colorOnPrimary"
                         android:textSize="13sp"
                         android:textStyle="bold" />
@@ -368,10 +367,10 @@
                         android:layout_width="38dp"
                         android:layout_height="38dp"
                         android:layout_marginStart="8dp"
-                        android:background="@drawable/bg_day_unselected"
+                        android:background="@drawable/bg_day_selected"
                         android:gravity="center"
-                        android:text="S"
-                        android:textColor="@color/text_secondary"
+                        android:text="@string/day_sat_letter"
+                        android:textColor="@color/colorOnPrimary"
                         android:textSize="13sp"
                         android:textStyle="bold" />
 
@@ -380,10 +379,10 @@
                         android:layout_width="38dp"
                         android:layout_height="38dp"
                         android:layout_marginStart="8dp"
-                        android:background="@drawable/bg_day_unselected"
+                        android:background="@drawable/bg_day_selected"
                         android:gravity="center"
-                        android:text="S"
-                        android:textColor="@color/text_secondary"
+                        android:text="@string/day_sun_letter"
+                        android:textColor="@color/colorOnPrimary"
                         android:textSize="13sp"
                         android:textStyle="bold" />
 
@@ -423,7 +422,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Sound"
+                        android:text="@string/sound_title"
                         android:textColor="@color/text_primary"
                         android:textSize="15sp"
                         android:textStyle="bold" />
@@ -433,7 +432,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="2dp"
-                        android:text="Default Alarm"
+                        android:text="@string/default_alarm"
                         android:textColor="@color/text_secondary"
                         android:textSize="12sp" />
                 </LinearLayout>
@@ -474,7 +473,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="14dp"
                     android:layout_marginEnd="8dp"
-                    android:text="Vibration"
+                    android:text="@string/vibration_title"
                     android:textColor="@color/text_primary"
                     android:textSize="15sp"
                     android:textStyle="bold"
@@ -530,7 +529,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Snooze"
+                        android:text="@string/snooze_title"
                         android:textColor="@color/text_primary"
                         android:textSize="15sp"
                         android:textStyle="bold" />
@@ -540,7 +539,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="2dp"
-                        android:text="10 minutes"
+                        android:text="@string/snooze_duration_default"
                         android:textColor="@color/text_secondary"
                         android:textSize="12sp" />
                 </LinearLayout>
@@ -577,7 +576,7 @@
             android:id="@+id/btnSaveAlarm"
             android:layout_width="match_parent"
             android:layout_height="56dp"
-            android:text="Save Alarm"
+            android:text="@string/save_alarm"
             android:textColor="@color/colorOnPrimary"
             android:textSize="16sp"
             android:textStyle="bold"

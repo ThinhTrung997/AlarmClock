@@ -2,6 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/bg_alarm_ring">
@@ -45,7 +46,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:text="Morning Workout"
+            android:text="@string/tab_alarm"
+            tools:text="Morning Workout"
             android:textColor="#C7C4D7"
             android:textSize="20sp"
             android:textStyle="bold" />
@@ -87,7 +89,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
-                android:text="SNOOZE (10M)"
+                android:text="@string/snooze_button_text"
                 android:textColor="#FFFFFF"
                 android:textSize="14sp"
                 android:textStyle="bold"
@@ -115,10 +117,11 @@
                 android:contentDescription="Dismiss" />
 
             <TextView
+                android:id="@+id/tvDismissText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
-                android:text="DISMISS"
+                android:text="@string/dismiss_button_text"
                 android:textColor="#0D0096"
                 android:textSize="14sp"
                 android:textStyle="bold"

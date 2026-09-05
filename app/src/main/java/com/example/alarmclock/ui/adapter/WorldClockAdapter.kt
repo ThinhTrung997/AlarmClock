@@ -56,10 +56,9 @@ class WorldClockAdapter(
             holder.tvCityAmPm.text = ""
             holder.tvCityAmPm.visibility = android.view.View.GONE
         } else {
-            val amPmFormat = SimpleDateFormat("a", Locale.US).apply {
-                timeZone = targetTimeZone
-            }
-            holder.tvCityAmPm.text = amPmFormat.format(now).uppercase()
+            val cal = java.util.Calendar.getInstance(targetTimeZone)
+            val isAm = cal.get(java.util.Calendar.AM_PM) == java.util.Calendar.AM
+            holder.tvCityAmPm.text = if (isAm) holder.itemView.context.getString(R.string.time_am) else holder.itemView.context.getString(R.string.time_pm)
             holder.tvCityAmPm.visibility = android.view.View.VISIBLE
         }
 
@@ -71,14 +70,14 @@ class WorldClockAdapter(
         val diffMinutesRemainder = TimeUnit.MILLISECONDS.toMinutes(diffMillis.toLong()) % 60
 
         val offsetText = when {
-            diffMillis == 0 -> "Local time"
+            diffMillis == 0 -> holder.itemView.context.getString(R.string.local_time)
             diffMinutesRemainder != 0L -> {
                 val sign = if (diffMillis > 0) "+" else ""
-                String.format(Locale.getDefault(), "%s%d:%02d hrs", sign, diffHours, Math.abs(diffMinutesRemainder))
+                holder.itemView.context.getString(R.string.hours_minutes_offset, sign, diffHours, Math.abs(diffMinutesRemainder))
             }
             else -> {
                 val sign = if (diffHours > 0) "+" else ""
-                "$sign$diffHours hrs"
+                holder.itemView.context.getString(R.string.hours_offset, sign, diffHours)
             }
         }
         holder.tvTimeOffset.text = offsetText

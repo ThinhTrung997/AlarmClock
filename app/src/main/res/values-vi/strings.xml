@@ -23,4 +23,81 @@
     <string name="clock_digital">Số (Digital)</string>
     <string name="cancel">Hủy</string>
     <string name="ok">Đồng ý</string>
+
+    <string name="add_alarm">Thêm báo thức</string>
+    <string name="edit_alarm">Sửa báo thức</string>
+    <string name="save">Lưu</string>
+    <string name="delete">Xóa</string>
+    <string name="delete_alarm">Xóa báo thức</string>
+    <string name="delete_confirm">Bạn có chắc chắn muốn xóa báo thức \"%1$s\" (%2$s %3$s) không?</string>
+    <string name="alarm_deleted">Đã xóa báo thức</string>
+    <string name="snooze_later">Báo lại</string>
+    <string name="dismiss">Tắt báo thức</string>
+    <string name="default_alarm">Nhạc báo thức mặc định</string>
+    <string name="clear_date">Xóa ngày</string>
+    <string name="everyday_no_date">Hằng ngày (Không chọn ngày cụ thể)</string>
+    <string name="alarm_snoozed">Đã lùi báo thức 5 phút</string>
+    <string name="alarm_dismissed">Đã tắt báo thức</string>
+    <string name="duplicate_alarm_time">Đã có báo thức vào lúc %1$s %2$s!</string>
+    <string name="select_alarm_sound">Chọn nhạc báo thức</string>
+    <string name="repeat_everyday">Hàng ngày</string>
+    <string name="repeat_weekends">Cuối tuần</string>
+    <string name="repeat_never">Không bao giờ</string>
+    <string name="day_mon">T2</string>
+    <string name="day_tue">T3</string>
+    <string name="day_wed">T4</string>
+    <string name="day_thu">T5</string>
+    <string name="day_fri">T6</string>
+    <string name="day_sat">T7</string>
+    <string name="day_sun">CN</string>
+    <string name="notification_permission_rationale">Vui lòng cấp quyền thông báo để chuông báo thức hoạt động tốt</string>
+    <string name="stopwatch_notification_title">Đồng hồ bấm giờ</string>
+    <string name="stopwatch_paused">Tạm dừng</string>
+    <string name="stopwatch_running">Đang chạy</string>
+    <string name="pause">Tạm dừng</string>
+    <string name="resume">Tiếp tục</string>
+    <string name="stop">Dừng</string>
+    <string name="alarm_ringing">Báo thức đang reo</string>
+    <string name="lap">Vòng</string>
+    <string name="reset">Đặt lại</string>
+
+    <string name="time_am">SA</string>
+    <string name="time_pm">CH</string>
+
+    <string name="date_label">Ngày</string>
+    <string name="alarm_label_title">Nhãn</string>
+    <string name="alarm_label_hint">Tên báo thức</string>
+    <string name="repeat_title">Lặp lại</string>
+    <string name="sound_title">Âm thanh</string>
+    <string name="vibration_title">Rung</string>
+    <string name="snooze_title">Báo lại</string>
+    <string name="snooze_duration_default">5 phút</string>
+    <string name="save_alarm">Lưu báo thức</string>
+    <string name="close">Đóng</string>
+
+    <string name="day_mon_letter">T2</string>
+    <string name="day_tue_letter">T3</string>
+    <string name="day_wed_letter">T4</string>
+    <string name="day_thu_letter">T5</string>
+    <string name="day_fri_letter">T6</string>
+    <string name="day_sat_letter">T7</string>
+    <string name="day_sun_letter">CN</string>
+
+    <string name="snooze_button_text">BÁO LẠI (5 PHÚT)</string>
+    <string name="dismiss_button_text">TẮT BÁO THỨC</string>
+
+    <string name="city_added">Đã thêm %1$s vào Giờ quốc tế</string>
+    <string name="city_already_exists">%1$s đã có trong danh sách</string>
+    <string name="delete_city">Xóa thành phố</string>
+    <string name="delete_city_confirm">Bạn có muốn xóa %1$s khỏi danh sách đồng hồ thế giới không?</string>
+    <string name="city_deleted">Đã xóa %1$s</string>
+    <string name="local_time">Giờ địa phương</string>
+    <string name="hours_offset">%1$s%2$d giờ</string>
+    <string name="hours_minutes_offset">%1$s%2$d:%3$02d giờ</string>
+
+    <string name="exact_alarm_permission_rationale">Vui lòng cấp quyền đặt báo thức chính xác trong Cài đặt để chuông reo đúng giờ</string>
+    <string name="permission_required">Cần cấp quyền</string>
+    <string name="open_settings">Mở cài đặt</string>
+    <string name="gradual_volume_enabled">Đã bật tăng dần âm lượng</string>
+    <string name="gradual_volume_disabled">Đã tắt tăng dần âm lượng</string>
 </resources>

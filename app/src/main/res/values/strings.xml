@@ -23,4 +23,81 @@
     <string name="clock_digital">Digital</string>
     <string name="cancel">Cancel</string>
     <string name="ok">OK</string>
+
+    <string name="add_alarm">Add Alarm</string>
+    <string name="edit_alarm">Edit Alarm</string>
+    <string name="save">Save</string>
+    <string name="delete">Delete</string>
+    <string name="delete_alarm">Delete Alarm</string>
+    <string name="delete_confirm">Are you sure you want to delete alarm \"%1$s\" (%2$s %3$s)?</string>
+    <string name="alarm_deleted">Alarm deleted</string>
+    <string name="snooze_later">Snooze</string>
+    <string name="dismiss">Dismiss</string>
+    <string name="default_alarm">Default Alarm</string>
+    <string name="clear_date">Clear Date</string>
+    <string name="everyday_no_date">Everyday (No specific date)</string>
+    <string name="alarm_snoozed">Alarm snoozed for 5 minutes</string>
+    <string name="alarm_dismissed">Alarm dismissed</string>
+    <string name="duplicate_alarm_time">An alarm already exists for %1$s %2$s!</string>
+    <string name="select_alarm_sound">Select alarm sound</string>
+    <string name="repeat_everyday">Everyday</string>
+    <string name="repeat_weekends">Weekends</string>
+    <string name="repeat_never">Never</string>
+    <string name="day_mon">Mon</string>
+    <string name="day_tue">Tue</string>
+    <string name="day_wed">Wed</string>
+    <string name="day_thu">Thu</string>
+    <string name="day_fri">Fri</string>
+    <string name="day_sat">Sat</string>
+    <string name="day_sun">Sun</string>
+    <string name="notification_permission_rationale">Please grant notification permission for alarms to work properly</string>
+    <string name="stopwatch_notification_title">Stopwatch</string>
+    <string name="stopwatch_paused">Paused</string>
+    <string name="stopwatch_running">Running</string>
+    <string name="pause">Pause</string>
+    <string name="resume">Resume</string>
+    <string name="stop">Stop</string>
+    <string name="alarm_ringing">Alarm ringing</string>
+    <string name="lap">Lap</string>
+    <string name="reset">Reset</string>
+
+    <string name="time_am">AM</string>
+    <string name="time_pm">PM</string>
+
+    <string name="date_label">Date</string>
+    <string name="alarm_label_title">Label</string>
+    <string name="alarm_label_hint">Alarm Label</string>
+    <string name="repeat_title">Repeat</string>
+    <string name="sound_title">Sound</string>
+    <string name="vibration_title">Vibration</string>
+    <string name="snooze_title">Snooze</string>
+    <string name="snooze_duration_default">5 minutes</string>
+    <string name="save_alarm">Save Alarm</string>
+    <string name="close">Close</string>
+
+    <string name="day_mon_letter">M</string>
+    <string name="day_tue_letter">T</string>
+    <string name="day_wed_letter">W</string>
+    <string name="day_thu_letter">T</string>
+    <string name="day_fri_letter">F</string>
+    <string name="day_sat_letter">S</string>
+    <string name="day_sun_letter">S</string>
+
+    <string name="snooze_button_text">SNOOZE (5 MIN)</string>
+    <string name="dismiss_button_text">DISMISS</string>
+
+    <string name="city_added">Added %1$s to World Clock</string>
+    <string name="city_already_exists">%1$s is already in the list</string>
+    <string name="delete_city">Delete City</string>
+    <string name="delete_city_confirm">Do you want to delete %1$s from world clock?</string>
+    <string name="city_deleted">Deleted %1$s</string>
+    <string name="local_time">Local time</string>
+    <string name="hours_offset">%1$s%2$d hrs</string>
+    <string name="hours_minutes_offset">%1$s%2$d:%3$02d hrs</string>
+
+    <string name="exact_alarm_permission_rationale">Please allow exact alarms in Settings so your alarm rings on time</string>
+    <string name="permission_required">Permission Required</string>
+    <string name="open_settings">Open Settings</string>
+    <string name="gradual_volume_enabled">Gradual Volume Increase enabled</string>
+    <string name="gradual_volume_disabled">Gradual Volume Increase disabled</string>
 </resources>
